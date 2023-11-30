@@ -4,19 +4,24 @@ Once the pins are knocked, they will disappear
 Define the bowling ball and bowling pins
 
      /*----- state variables -----*/
-Use an array to represent the scoreboard(how to set it up?)
+Use an array to represent the scoreboard
 Define an variable to represent the position of the ball.
 Variable to define the direction of the ball and the speed of the ball
 Variable to define the number of the knocked pins
 varaiable to represent the total points of the game 
      /*----- cached elements -----*/
      /*----- event listeners -----*/
-Use the left and right arrow to move the bowling bowl to the left and right.
-Click to randomly pick the power of ball and direction of where bowling ball is going.
-When the bowl touches the bowling pins, trigger the bowling pins to fall and update the score on the score board.
+1.click the ball, triggers the ball the move in the direction assigned .
+2. When the bowl touches the bowling pins, trigger the bowling pins to fall and update the score on the score board.
      /*----- functions -----*/
 Init => scoreboard to be empty, bowing balls to be centered, bowling pins to be positions.
-Position =>Change the position of the bowling ball horizontally.
-Speed -> randomly choose the speed level
+
+// If I hve time, I will change the position of the bowling ball horizontally.Speed -> randomly choose the speed level
+
 Direction -> randomly pick the direction(the direction angle falls into a range, the ball hits the pins; out of range, no pins gets hit)
 Update the score on the scoreboard
+
+
+if I have time,
+Use the left and right arrow to move the bowling bowl to the left and right.
+Click to randomly pick the power of ball and direction of where bowling ball is going.
