@@ -1,59 +1,56 @@
-// const 
+/*----- constants -----*/
 const symbols = {
     "0":"-",
     "10": "X",
     "null": ""
 }
 
-// define the board 
-let scoreboard = [
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null],
-	[null,null,null]
-]
-
-// let knockedPin = 88;
-//  let count = 9;
-//  let round = Math.floor((count-1)/2);
-//  console.log(round);
- function firstOrSecondTry(count) {
- if (count % 2 === 0) {
-	return 1; // second throw
- } else {
-	return 0; // first throw
- }
-}
+  /*----- state variables -----*/
 let count; // track how many throw it is.
 let frame; 
 let whichtry; // is it second or first throw for each round
 let sum;
 let knockedPin;
+let scoreboard;
 
+
+  /*----- cached elements  -----*/
 
 const total = document.getElementById("total");
 const button = document.getElementById("button");
 
+  /*----- functions -----*/
 function init() {
     count = 0;
     frame = null;
     whichtry = null;
     sum = 0;
     knockedPin = null;
+    scoreboard = [
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null]
+    ]
 }
+
 
 init();
+// define the index of the each throw in the frame 
+function firstOrSecondTry(count) {
+    if (count % 2 === 0) {
+       return 1; // second throw
+    } else {
+       return 0; // first throw
+    }
+   }
 
-function knockedPins (knockedPin) {
-    let x = knockedPin;
-    return knockedPin;
-}
 function throwBall (knockedPin) {
     count = count +1; 
 frame = Math.floor((count-1)/2);
@@ -70,9 +67,6 @@ renderBoard();
 function updateBoard(frame,whichtry) {
     scoreboard[frame-offsetCol][2] =  scoreboard[frame-1][2] + scoreboard[frame][whichtry];
 }
-
-// strike 
-
 
 // getSum function 
 function getSum(knockedPin) {
@@ -110,7 +104,6 @@ function checkSpare() {
           } 
 }
 
-
 throwBall(10);
 console.log(count);
 console.log(scoreboard);
@@ -122,8 +115,7 @@ throwBall(4);
 throwBall(3);
 throwBall(10);
 throwBall(5);
-// throwBall(5,5);
-// throwBall(6,6);
+
 
 // let eachThrowCellID = `r2c${round}throw${whichtry}`;
 // console.log(eachThrowCellID);
@@ -137,9 +129,6 @@ throwBall(5);
 // eachroundSumEl.innerHTML = "0";
 // let eachroundSumValue = eachroundSumEl.innerHTML; 
 // console.log(eachroundSumValue);
-
-
-
 
 
 function renderBoard() {
@@ -157,4 +146,3 @@ function renderBoard() {
 }
 
 
-    // pseudocode 
