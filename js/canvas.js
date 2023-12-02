@@ -1,19 +1,19 @@
 /*----- constants -----*/
 
-const canvas = document.getElementById("bowling");
-const context = canvas.getContext("2d");
-canvas.width =240;
+const canvas = document.getElementById('bowling');
+const context = canvas.getContext('2d');
+canvas.width = 240;
 canvas.height = 600;
-canvas.style.cursor = "crosshair";
-const lane = drawRect(30,0,180,600,"#8B4513");
- const channelLeft = drawRect(0,0,30,600,"grey");
- const channelRight = drawRect(210,0,30,600,"grey")
+canvas.style.cursor = 'crosshair';
+const lane = drawRect(30,0,180,600,'#8B4513');
+ const channelLeft = drawRect(0,0,30,600,'grey');
+ const channelRight = drawRect(210,0,30,600,'grey')
 
  const ball = {
   x: canvas.width/2,
   y: 500,
   r:15,
-  speed: 1,
+  speed: null,
   velocityX: null,
   velocityY: null,
   color:"red",
@@ -23,17 +23,17 @@ const lane = drawRect(30,0,180,600,"#8B4513");
   x: canvas.width/2 - 15,
   y: 20,
   r: 10,
-  color: "white"
+  color: 'white'
  }
 
  // draw bowling lane and ball
-function drawRect(x,y,w,h,color){
+function drawRect(x,y,w,h,color) {
   context.fillStyle = color;
   context.fillRect(x,y,w,h);
 }
 
-function drawCircle (x,y,r,color){
-  context.fillStyle =color;
+function drawCircle (x,y,r,color) {
+  context.fillStyle = color;
   context.beginPath();
 context.arc(x,y,r,0,Math.PI*2,false)
 context.closePath();
@@ -58,8 +58,12 @@ context.fill();
  let distanceX;
  let distanceY;
  let is_draggingBall = false;
+ let is_ballrowing = false;
  let mouseX, mouseY;
- 
+ let angleRadian;
+ let knockedPin;
+ let hittingPins;
+//  let tan; // the angle the ball is thrown
 
   /*----- cached elements  -----*/
   function initBall() {
@@ -81,39 +85,38 @@ context.fill();
   /*----- event listeners -----*/
 
 // document.addEventListener("pointermove",handleDragBall)
-canvas.addEventListener("mousedown", grabBall);
-canvas.addEventListener("mouseup", mouse_up);
-canvas.addEventListener("mouseout", function(evt){
-  if(!is_draggingBall){
+canvas.addEventListener('mousedown', grabBall);
+canvas.addEventListener('mouseup', mouse_up);
+canvas.addEventListener('mouseout', function(evt) {
+  if (!is_draggingBall) {
     return;
   }
   evt.preventDefault();
   is_draggingBall = false;
 })
-canvas.addEventListener("mousemove", dragBall)
+canvas.addEventListener('mousemove', dragBall)
+
 
 /*----- functions -----*/
 // grab the ball
-function grabBall(evt){
+function grabBall(evt) {
   let rect = canvas.getBoundingClientRect();
   let mouseY = evt.clientY - rect.top;
   let mouseX =  evt.clientX - rect.left;
   evt.preventDefault();
 
   //check whether the mouse is inside the ball radius 
-  if(if_mouse_on_ball(mouseX,mouseY)){
-    console.log("yes");
+  if (if_mouse_on_ball(mouseX, mouseY)) {
     is_draggingBall = true;
-    canvas.style.cursor = "grab";
+    canvas.style.cursor = 'grab';
     // return;
   } else {
-    console.log("no");
     is_draggingBall = false;
   } 
 }
 
-function mouse_up(evt){
-  if(!is_draggingBall){
+function mouse_up(evt) {
+  if (!is_draggingBall) {
     return;
   }
   evt.preventDefault();
@@ -122,22 +125,29 @@ function mouse_up(evt){
   ball.y = mouseY;
   // redraw everything;
   // may have a problem later when layer throws the ball the second chance.
- drawRect(30,0,180,600,"#8B4513");
-  drawRect(0,0,30,600,"grey");
-  drawRect(210,0,30,600,"grey")
+  drawRect(30,0,180,600,'#8B4513');
+  drawRect(0,0,30,600,'grey');
+  drawRect(210,0,30,600,'grey')
   initBall();
   ball_end_x = mouseX;
   ball_end_y = mouseY;
+  canvas.style.cursor = 'crosshair';
+  is_ballrowing = 'true';
+  // define the angels the ball will go 
+   let adj = distanceY;
+    let opp = distanceX;
+    //represents the tangent value.
+    tan = (opp/adj);
+    //compute the arc tangent.π/2 <= θ <= π/2 (radians)
+    angleRadian = Math.atan(tan);
+  throwBall();
 }
 
-
-function if_mouse_on_ball(mouseX, mouseY){
+function if_mouse_on_ball(mouseX, mouseY) {
   const distance = Math.sqrt(
     ((mouseX-ball_start_x)*(mouseX-ball_start_x))+((mouseY-ball_start_y)*(mouseY-ball_start_y))
   )
-  console.log(distance);
-  if(distance <= ball.r){
-    
+  if (distance <= ball.r) {
     return true;
   }
   return false;
@@ -145,7 +155,7 @@ function if_mouse_on_ball(mouseX, mouseY){
 
 // drag the ball and caculate the angel and make the ball move in that direction
 function dragBall(evt) {
-  if(!is_draggingBall) {
+  if (!is_draggingBall) {
     return;
   } else {
   evt.preventDefault();
@@ -156,37 +166,83 @@ function dragBall(evt) {
   ball.y = mouseY;
   distanceX = mouseX - ball_start_x;
   distanceY = mouseY - ball_start_y;
-  console.log(distanceX,distanceY)
-  // console.log(distanceX, distanceY);
-  // ball.y  += distanceY;
-  // ball.x += distanceX;
-  // setInterval(drawCircle(ball.x, ball.y, ball.r, ball.color);)
-  // drawCircle(ball.x, ball.y, ball.r, ball.color);
-  ball_end_x = mouseX;
-  ball_end_y = mouseY;
   }
-  
-  // how to get the ball based on the angel;
-  // collision 
-  //
-
-  throwBall();
-  function throwBall (){
-    // let adj = ball_end_y - ball_start_y;
-    // let opp = ball_end_x - ball_start_x;
-    let adj = distanceY;
-    let opp = distanceX;
-    console.log(opp,adj)
-    tan = adj/opp;
-    let angel = Math.atan(tan);
-    // setInterval(()=> {
-    //   ball.x = 
-    // });
-    // console.log(tan);
-    // let angelRad = Ma
-//       const framePerSecond = 50;
-// setInterval(game, 1000/framePerSecond);
-  }
-
 }
 
+ 
+  function throwBall (){
+    if_hit_the_pins(angleRadian);
+    console.log(hittingPins);
+    let ballRowling = setInterval(()=>{
+      drawRect(30,0,180,600,"#8B4513");
+      drawRect(0,0,30,600,"grey");
+      drawRect(210,0,30,600,"grey")
+      initBall();
+      ball.y = ball.y - Math.cos(angleRadian)*20;
+      ball.x = ball.x - Math.sin(angleRadian)*20;
+      if (!hittingPins) {
+        collision();
+      } else {
+        knockingBallDown();
+      };
+      if (ball.y <= -50 ){
+       clearInterval(ballRowling);
+      }
+      }
+    ,100)
+  }
+
+//define the range of whether the pins will be knocked
+  // check the angle of the ball being thrown is within the range of hititng the pins.
+  const left_Collision_PointX = pin.x -30 -ball.r;
+  //  const right_Collision_PointX = pin.x +60 + ball.r;
+  const  max_pin_hitting_tan = (left_Collision_PointX  - canvas.width/2)/(ball.y-pin.y);
+   const max_pin_hitting_angleRadian = Math.atan(max_pin_hitting_tan);
+  
+
+  function if_hit_the_pins(angleRadian) {
+    if (Math.abs(angleRadian) > Math.abs(max_pin_hitting_angleRadian)) {
+      knockedPin = 0;
+      hittingPins = false;
+    } else {
+      hittingPins = true;
+    }
+  }
+
+
+  function knockingBallDown(){
+    return 0;
+  }
+
+//   function ballMoving(){
+//       drawRect(30,0,180,600,"#8B4513");
+//       drawRect(0,0,30,600,"grey");
+//       drawRect(210,0,30,600,"grey")
+//       initBall();
+//       ball.y = ball.y - Math.cos(angelRadian)*20;
+//       ball.x = ball.x - Math.sin(angelRadian)*20;
+//       collision();
+//   }
+// let ballRolling
+//   function start(){ 
+//      ballRollingonLane = setInterval(ballMoving,100)
+//   }
+
+//   function stop(){
+//     clearInterval(ballRollingonLane);
+//   }
+
+
+function collision() {
+  if (ball.x >= canvas.width -25 || ball.x <= 27) {
+    angleRadian = 0;
+    // if (ball.x < 120) {
+    //   ball.x -= 15;
+    // } else {
+    //   ball.x += 15;
+    // } 
+  }
+}
+
+
+  

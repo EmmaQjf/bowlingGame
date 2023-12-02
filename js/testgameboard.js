@@ -10,14 +10,13 @@ let count; // track how many throw it is.
 let frame; 
 let whichtry; // is it second or first throw for each round
 let sum;
-let knockedPin;
 let scoreboard;
 
 
   /*----- cached elements  -----*/
 
-const total = document.getElementById("total");
-const button = document.getElementById("button");
+const total = document.getElementById('total');
+const button = document.getElementById('button');
 
   /*----- functions -----*/
 function init() {
@@ -89,17 +88,15 @@ function checkStrike() {
     if(frame >= 1 && scoreboard[frame-1][0] === 10){
         // change the previous sum
         scoreboard[frame-1][2] += scoreboard[frame][whichtry];
-        console.log(scoreboard[frame-1][2]);
+   
         // add the knocked pins to the sum again;
         sum = sum + scoreboard[frame][whichtry];
-        console.log(sum);
       }
 }
 function checkSpare() {
     if(frame >= 1 && whichtry === 0 && scoreboard[frame-1][0] !== 10 && (scoreboard[frame-1][0]+scoreboard[frame-1][1] === 10)) {
           // update the previous sum;
             scoreboard[frame-1][2] += scoreboard[frame][whichtry];
-
             // add the knockedpin to the sum again;
             sum = sum + scoreboard[frame][whichtry];
           } 
@@ -114,8 +111,7 @@ throwBall(1);
 throwBall(5);
 throwBall(4);
 throwBall(3);
-throwBall(10);
-throwBall(5);
+
 
 
 // let eachThrowCellID = `r2c${round}throw${whichtry}`;
@@ -143,14 +139,10 @@ function renderBoard() {
             } else if (rowVal === 0){
                 cellEl.innerHTML = '-';
             }else if (rowIdx == 1 && colArr[0]+rowVal === 10){
-                cellEl.innerHTML = "/";
+                cellEl.innerHTML = '/';
             } else {
                 cellEl.innerHTML = rowVal;
             }
-			// cellEl.innerHTML = rowVal;
-            // if (rowVal = 0||10||null) {cellEl.innerHTML = symbols[rowVal]} else {
-            //     cellEl.innerHTML = rowVal;
-            // }
             }
            )    
 	}) 
