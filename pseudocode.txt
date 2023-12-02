@@ -1,20 +1,46 @@
 Once the pins are knocked, they will disappear
 
      /*----- constants -----*/
-Define the bowling ball and bowling pins
+
+Define the bowling ball, canvas, the symbols
+
 
      /*----- state variables -----*/
+     // score board 
 Use an array to represent the scoreboard
+varaiable to represent the total points of the game 
+count the number of the throw ;
+which frame it is,
+the index of throw in each frame
+
+ // canvas gamelane
 Define an variable to represent the position of the ball.
 Variable to define the direction of the ball and the speed of the ball
 Variable to define the number of the knocked pins
-varaiable to represent the total points of the game 
+
      /*----- cached elements -----*/
+table --scoreboard
+each cell in table
+
      /*----- event listeners -----*/
-1.click the ball, triggers the ball the move in the direction assigned .
-2. When the bowl touches the bowling pins, trigger the bowling pins to fall and update the score on the score board.
+1.click the ball,grab the ball, triggers the ball the move in the direction assigned .
+2. when ball touches the channel, fall in the channel, change direction and go in Y direction, no pins get knocked down.
+2. When the ball touches the bowling pins, trigger the bowling pins to fall and update the score on the score board.
      /*----- functions -----*/
+
+     // canvas, gamelane
 Init => scoreboard to be empty, bowing balls to be centered, bowling pins to be positions.
+grab the ball;
+drag the ball;
+throw the ball;
+collision on the channel;
+collision on the pins
+  // scoreboard 
+define in each frame, what is the index of the each throw;
+caculate the sum ;
+check if it is stike or spare 
+
+
 
 // If I hve time, I will change the position of the bowling ball horizontally.Speed -> randomly choose the speed level
 
@@ -25,3 +51,7 @@ Update the score on the scoreboard
 if I have time,
 Use the left and right arrow to move the bowling bowl to the left and right.
 Click to randomly pick the power of ball and direction of where bowling ball is going.
+
+
+
+// update the scoreboard based on the score, strike -x; spare - /, 0 - -, all the others, 

@@ -1,9 +1,9 @@
 /*----- constants -----*/
-const symbols = {
-    "0":"-",
-    "10": "X",
-    "null": ""
-}
+// const symbols = {
+//     "0":"-",
+//     "10": "X",
+//     "null": ""
+// }
 
   /*----- state variables -----*/
 let count; // track how many throw it is.
@@ -99,6 +99,7 @@ function checkSpare() {
     if(frame >= 1 && whichtry === 0 && scoreboard[frame-1][0] !== 10 && (scoreboard[frame-1][0]+scoreboard[frame-1][1] === 10)) {
           // update the previous sum;
             scoreboard[frame-1][2] += scoreboard[frame][whichtry];
+
             // add the knockedpin to the sum again;
             sum = sum + scoreboard[frame][whichtry];
           } 
@@ -136,7 +137,17 @@ function renderBoard() {
 		colArr.forEach(function(rowVal,rowIdx){
 			const eachThrowCellID = `r2c${colIdx}throw${rowIdx}`
 			const cellEl = document.getElementById(eachThrowCellID);
-			cellEl.innerHTML = rowVal;
+            if (rowIdx === 0 && rowVal ===10){ cellEl.innerHTML = ' X ';
+            }  else if (rowVal === null){
+                cellEl.innerHTML = '';
+            } else if (rowVal === 0){
+                cellEl.innerHTML = '-';
+            }else if (rowIdx == 1 && colArr[0]+rowVal === 10){
+                cellEl.innerHTML = "/";
+            } else {
+                cellEl.innerHTML = rowVal;
+            }
+			// cellEl.innerHTML = rowVal;
             // if (rowVal = 0||10||null) {cellEl.innerHTML = symbols[rowVal]} else {
             //     cellEl.innerHTML = rowVal;
             // }
