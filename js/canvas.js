@@ -10,7 +10,7 @@ const lane = drawRect(30,0,180,600,"#8B4513");
 
  const ball = {
   x: canvas.width/2,
-  y: 570,
+  y: 500,
   r:15,
   velocityX: 0,
   velocityY: 1,
@@ -48,8 +48,7 @@ let distanceY;
 //   update(); // movements, collision detection,scoreupdate
 //   render();
 // }
-// const framePerSecond = 50;
-// setInterval(game, 1000/framePerSecond);
+
  
  /*----- state variables -----*/
  let BALL_DRAG = false;
@@ -78,23 +77,34 @@ let distanceY;
   /*----- event listeners -----*/
 
 
-
+let mouseX, mouseY;
 // document.addEventListener("pointermove",handleDragBall)
 canvas.addEventListener("mousedown", grabBall);
-// canvas.addEventListener("mouseup", function(evt){
-//   if(!is_draggingBall){
-//     return;
-//   }
-//   evt.preventDefault();
-//   is_draggingBall = false;
-// })
-// canvas.addEventListener("mouseout", function(evt){
-//   if(!is_draggingBall){
-//     return;
-//   }
-//   evt.preventDefault();
-//   is_draggingBall = false;
-// })
+canvas.addEventListener("mouseup", function(evt){
+  if(!is_draggingBall){
+    return;
+  }
+  evt.preventDefault();
+  is_draggingBall = false;
+  ball.x = mouseX;
+  ball.y = mouseY;
+  // redraw everything;
+  // may have a problem later when layer throws the ball the second chance.
+drawRect(30,0,180,600,"#8B4513");
+ drawRect(0,0,30,600,"grey");
+  drawRect(210,0,30,600,"grey");
+  initBall();
+  drawCircle(ball.x, ball.y, ball.r, ball.color);
+  ball_end_x = mouseX;
+  ball_end_y = mouseY;
+})
+canvas.addEventListener("mouseout", function(evt){
+  if(!is_draggingBall){
+    return;
+  }
+  evt.preventDefault();
+  is_draggingBall = false;
+})
 canvas.addEventListener("mousemove", dragBall)
 // drag the ball and caculate the angel and make the ball move in that direction
 function dragBall(evt) {
@@ -103,20 +113,42 @@ function dragBall(evt) {
   } else {
   evt.preventDefault();
   let rect = canvas.getBoundingClientRect();
-  let mouseX = evt.clientX - rect.left;
-  let mouseY = evt.clientY - rect.top;
-  let distanceX = mouseX - ball_start_x;
-  let distanceY = mouseY - ball_start_y;
-  console.log(distanceX, distanceY);
-  ball.y  += distanceY;
-  ball.x += distanceX;
-  drawCircle(ball.x, ball.y, ball.r, ball.color);
-  ball_start_x = mouseX;
-  ball_start_y = mouseY;
+   mouseX = evt.clientX - rect.left;
+   mouseY = evt.clientY - rect.top;
+  ball.x = mouseX;
+  ball.y = mouseY;
+  distanceX = mouseX - ball_start_x;
+  distanceY = mouseY - ball_start_y;
+  console.log(distanceX,distanceY)
+  // console.log(distanceX, distanceY);
+  // ball.y  += distanceY;
+  // ball.x += distanceX;
+  // setInterval(drawCircle(ball.x, ball.y, ball.r, ball.color);)
+  // drawCircle(ball.x, ball.y, ball.r, ball.color);
+  ball_end_x = mouseX;
+  ball_end_y = mouseY;
   }
   
-  function throwBall (){
+  // how to get the ball based on the angel;
+  // collision 
+  //
 
+  throwBall();
+  function throwBall (){
+    // let adj = ball_end_y - ball_start_y;
+    // let opp = ball_end_x - ball_start_x;
+    let adj = distanceY;
+    let opp = distanceX;
+    console.log(opp,adj)
+    tan = adj/opp;
+    let angel = Math.atan(tan);
+    setInterval(()=> {
+      ball.x = 
+    });
+    // console.log(tan);
+    // let angelRad = Ma
+//       const framePerSecond = 50;
+// setInterval(game, 1000/framePerSecond);
   }
 
 }
@@ -139,20 +171,6 @@ function grabBall(evt){
 
   
 }
-// let mouse_down = function(event) {
-//   event.preventDefault();
-//   console.log(event);
-//   let mouseX = event.pageX -parseInt(canvas.style.left.replace(' px',''));
-//   let mouseY  = event.pageY-parseInt(canvas.style.top.replace(' px',''));
-//   console.log(mouseX,mouseY);
-
-//   console.log(ball.x,ball.y)
-//   if_mouse_on_ball();
-
-// }
-
-// canvas.onmousedown = mouse_down;
-
 
 function if_mouse_on_ball(mouseX, mouseY){
   const distance = Math.sqrt(
