@@ -26,6 +26,29 @@ const lane = drawRect(30,0,180,600,'#8B4513');
   color: 'white'
  }
 
+ let pins = []; 
+ pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+
+//  pins.push({x:105 -30 , y:20 , r:10 , color:'white' })
+//  pins.push({x:105 , y:20 , r:10 , color:'white' })
+//  pins.push({x:105 + 30 , y:20 , r:10 , color:'white' })
+//  pins.push({x:105 + 60 , y:20 , r:10 , color:'white' })
+//  pins.push({x:105 - 15 , y:20 + 20 , r:10 , color:'white' })
+//  pins.push({x:105 + 15 , y:20 + 20 , r:10 , color:'white' })
+//  pins.push({x:105 + 45 , y:20 + 20 , r:10 , color:'white' })
+//  pins.push({x:105 , y:20 + 40 , r:10 , color:'white' })
+//  pins.push({x:105 + 30 , y:20 + 40 , r:10 , color:'white' })
+//  pins.push({x:105 + 15 , y:20 + 60 , r:10 , color:'white' })
+
  // draw bowling lane and ball
 function drawRect(x,y,w,h,color) {
   context.fillStyle = color;
@@ -40,6 +63,17 @@ context.closePath();
 context.fill();
 }
 
+function draw_pins() {
+  for (let pin of pins){
+    context.fillStyle = pin.color;
+     context.beginPath();
+    context.arc(pin.x,pin.y,pin.r,0,Math.PI*2,false)
+    context.closePath();
+    context.fill();
+  }
+}
+
+
 
 
 // function game(){
@@ -50,7 +84,6 @@ context.fill();
  
  /*----- state variables -----*/
 
- let pin1,pin2,pin3,pin4,pin5,piin6,pin7,pin8,pin9,pin10;
  let ball_start_x = ball.x;
  let ball_start_y = ball.y;
  let ball_end_x = null;
@@ -58,26 +91,27 @@ context.fill();
  let distanceX;
  let distanceY;
  let is_draggingBall = false;
- let is_ballrowing = false;
+ let is_ballroling = false;
  let mouseX, mouseY;
  let angleRadian;
- let knockedPin;
+ let knockedPin = 0;
  let hittingPins;
 //  let tan; // the angle the ball is thrown
 
   /*----- cached elements  -----*/
   function initBall() {
     drawCircle(ball.x, ball.y, ball.r, ball.color);
-    pin1 = drawCircle(pin.x -30,pin.y,pin.r,pin.color);
-    pin2 = drawCircle(pin.x,pin.y,pin.r,pin.color);
-    pin3 = drawCircle(pin.x +30,pin.y,pin.r,pin.color);
-    pin4 = drawCircle(pin.x +60,pin.y,pin.r,pin.color);
-    pin5 = drawCircle(pin.x-15 ,pin.y +20,pin.r,pin.color);
-    pin6 = drawCircle(pin.x+15 ,pin.y +20,pin.r,pin.color);
-    pin7 = drawCircle(pin.x+45 ,pin.y +20,pin.r,pin.color);
-    pin8 = drawCircle(pin.x,pin.y +40,pin.r,pin.color);
-    pin9 = drawCircle(pin.x +30,pin.y+40,pin.r,pin.color);
-    pin10 = drawCircle(pin.x+15 ,pin.y +60,pin.r,pin.color); 
+    // pin1 = drawCircle(pin.x -30,pin.y,pin.r,pin.color);
+    // pin2 = drawCircle(pin.x,pin.y,pin.r,pin.color);
+    // pin3 = drawCircle(pin.x +30,pin.y,pin.r,pin.color);
+    // pin4 = drawCircle(pin.x +60,pin.y,pin.r,pin.color);
+    // pin5 = drawCircle(pin.x-15 ,pin.y +20,pin.r,pin.color);
+    // pin6 = drawCircle(pin.x+15 ,pin.y +20,pin.r,pin.color);
+    // pin7 = drawCircle(pin.x+45 ,pin.y +20,pin.r,pin.color);
+    // pin8 = drawCircle(pin.x,pin.y +40,pin.r,pin.color);
+    // pin9 = drawCircle(pin.x +30,pin.y+40,pin.r,pin.color);
+    // pin10 = drawCircle(pin.x+15 ,pin.y +60,pin.r,pin.color); 
+    draw_pins();
   }
 
   initBall();
@@ -132,7 +166,7 @@ function mouse_up(evt) {
   ball_end_x = mouseX;
   ball_end_y = mouseY;
   canvas.style.cursor = 'crosshair';
-  is_ballrowing = 'true';
+  is_ballroling = 'true';
   // define the angels the ball will go 
    let adj = distanceY;
     let opp = distanceX;
@@ -169,11 +203,9 @@ function dragBall(evt) {
   }
 }
 
- 
   function throwBall (){
     if_hit_the_pins(angleRadian);
-    console.log(hittingPins);
-    let ballRowling = setInterval(()=>{
+    let ballRolling = setInterval(()=>{
       drawRect(30,0,180,600,"#8B4513");
       drawRect(0,0,30,600,"grey");
       drawRect(210,0,30,600,"grey")
@@ -183,10 +215,16 @@ function dragBall(evt) {
       if (!hittingPins) {
         collision();
       } else {
-        knockingBallDown();
+        knockingPinsDown();
+        // update the scoreboard
       };
+      
       if (ball.y <= -50 ){
-       clearInterval(ballRowling);
+       clearInterval(ballRolling);
+       ball.x = canvas.width/2;
+       ball.y = 500;
+       drawCircle(ball.x, ball.y, ball.r, ball.color);
+       knockedPin = 0;
       }
       }
     ,100)
@@ -209,10 +247,21 @@ function dragBall(evt) {
     }
   }
 
-
-  function knockingBallDown(){
-    return 0;
+// have the pins disappear 
+  function knockingPinsDown(){
+    let index = 0;
+  // find the shape range of the pins
+    for (let pin of pins) {
+    if (Math.sqrt((ball.x - pin.x) * (ball.x - pin.x) + (ball.y - pin.y) * (ball.y - pin.y)) <= (ball.r + pin.r)){
+       knockedPin ++;
+       pins.splice(index,1);
+       console.log(knockedPin);
+    }
+    index ++;
   }
+  }
+  
+  
 
 //   function ballMoving(){
 //       drawRect(30,0,180,600,"#8B4513");
