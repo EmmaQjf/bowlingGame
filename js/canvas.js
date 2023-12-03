@@ -26,29 +26,10 @@ const lane = drawRect(30,0,180,600,'#8B4513');
   color: 'white'
  }
 
- let pins = []; 
- pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
- pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
- pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
- pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
- pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
- pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
- pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
- pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
- pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
- pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+ const ball_start_x = ball.x;
+ const ball_start_y = ball.y;
 
-//  pins.push({x:105 -30 , y:20 , r:10 , color:'white' })
-//  pins.push({x:105 , y:20 , r:10 , color:'white' })
-//  pins.push({x:105 + 30 , y:20 , r:10 , color:'white' })
-//  pins.push({x:105 + 60 , y:20 , r:10 , color:'white' })
-//  pins.push({x:105 - 15 , y:20 + 20 , r:10 , color:'white' })
-//  pins.push({x:105 + 15 , y:20 + 20 , r:10 , color:'white' })
-//  pins.push({x:105 + 45 , y:20 + 20 , r:10 , color:'white' })
-//  pins.push({x:105 , y:20 + 40 , r:10 , color:'white' })
-//  pins.push({x:105 + 30 , y:20 + 40 , r:10 , color:'white' })
-//  pins.push({x:105 + 15 , y:20 + 60 , r:10 , color:'white' })
-
+ 
  // draw bowling lane and ball
 function drawRect(x,y,w,h,color) {
   context.fillStyle = color;
@@ -73,65 +54,91 @@ function draw_pins() {
   }
 }
 
-
-
-
-// function game(){
-//   update(); // movements, collision detection,scoreupdate
-//   render();
-// }
-
  
  /*----- state variables -----*/
+ let pins = []; 
+ pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
 
- let ball_start_x = ball.x;
- let ball_start_y = ball.y;
  let ball_end_x = null;
  let ball_end_y = null;
  let distanceX;
  let distanceY;
  let is_draggingBall = false;
- let is_ballroling = false;
  let mouseX, mouseY;
  let angleRadian;
  let knockedPin = 0;
  let hittingPins;
+
 //  let tan; // the angle the ball is thrown
 
   /*----- cached elements  -----*/
+  const playAgain = document.getElementById('play_again');
+
   function initBall() {
     drawCircle(ball.x, ball.y, ball.r, ball.color);
-    // pin1 = drawCircle(pin.x -30,pin.y,pin.r,pin.color);
-    // pin2 = drawCircle(pin.x,pin.y,pin.r,pin.color);
-    // pin3 = drawCircle(pin.x +30,pin.y,pin.r,pin.color);
-    // pin4 = drawCircle(pin.x +60,pin.y,pin.r,pin.color);
-    // pin5 = drawCircle(pin.x-15 ,pin.y +20,pin.r,pin.color);
-    // pin6 = drawCircle(pin.x+15 ,pin.y +20,pin.r,pin.color);
-    // pin7 = drawCircle(pin.x+45 ,pin.y +20,pin.r,pin.color);
-    // pin8 = drawCircle(pin.x,pin.y +40,pin.r,pin.color);
-    // pin9 = drawCircle(pin.x +30,pin.y+40,pin.r,pin.color);
-    // pin10 = drawCircle(pin.x+15 ,pin.y +60,pin.r,pin.color); 
     draw_pins();
   }
 
   initBall();
   
+  function initCanvas() {
+ pins = []; 
+ pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+ ball.x = canvas.width/2;
+ ball.y = 500;
+ knockedPin = 0;
+ is_draggingBall = false;
+ initBall();
+ count = 0;
+    frame = null;
+    whichtry = null;
+    sum = 0;
+    // knockedPin = null;
+    scoreboard = [
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null]
+    ]
+    total.innerHTML = '';
+    renderBoard();
+  }
+
   /*----- event listeners -----*/
 
-// document.addEventListener("pointermove",handleDragBall)
 canvas.addEventListener('mousedown', grabBall);
 canvas.addEventListener('mouseup', mouse_up);
-canvas.addEventListener('mouseout', function(evt) {
-  if (!is_draggingBall) {
-    return;
-  }
-  evt.preventDefault();
-  is_draggingBall = false;
-})
+
 canvas.addEventListener('mousemove', dragBall)
+playAgain.addEventListener("click", initCanvas);
 
 
 /*----- functions -----*/
+
 // grab the ball
 function grabBall(evt) {
   let rect = canvas.getBoundingClientRect();
@@ -149,6 +156,7 @@ function grabBall(evt) {
   } 
 }
 
+// mouse_up function
 function mouse_up(evt) {
   if (!is_draggingBall) {
     return;
@@ -281,13 +289,14 @@ function collision_on_gutter() {
   if (ball.x >= canvas.width -25 || ball.x <= 27) {
     angleRadian = 0;
     knockedPin = 0;
-    // if (ball.x < 120) {
-    //   ball.x -= 15;
-    // } else {
-    //   ball.x += 15;
-    // } 
   }
 }
 
-
+// canvas.addEventListener('mouseout', function(evt) {
+//   if (!is_draggingBall) {
+//     return;
+//   }
+//   evt.preventDefault();
+//   is_draggingBall = false;
+// })
   

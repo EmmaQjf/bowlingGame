@@ -43,7 +43,7 @@ tr:nth-child(2) > td:last-child{
     background-color: lightskyblue;
 }
 
-button{
+#play_again{
     display: block;
     margin: 1rem auto;
 }

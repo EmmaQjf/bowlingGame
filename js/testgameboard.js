@@ -16,8 +16,9 @@ let scoreboard;
 
   /*----- cached elements  -----*/
 
-const total = document.getElementById('total');
-const button = document.getElementById('button');
+let total = document.getElementById('total');
+
+
 
   /*----- functions -----*/
 function init() {
