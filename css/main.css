@@ -13,7 +13,7 @@ body{
 }
 /* style the table  */
 table{
-    width: 60%;
+    width: 80%;
     border: 2px solid black;
     border-collapse: collapse;
     margin: 1rem auto 2rem;
@@ -22,8 +22,9 @@ table{
 td {
     text-align: center;
     border: 1px solid black;
-    width: 3vmin;
-    height: 3vmin;
+    width: 4vmin;
+    height: 4vmin;
+    font-size: 1.5rem;
     
 }
 tr:first-child{
@@ -46,8 +47,13 @@ tr:nth-child(2) > td:last-child{
 #play_again{
     display: block;
     margin: 1rem auto;
+    size: 1rem;
+    font-size: 1rem;
 }
 
+#play_again:hover {
+    background-image: linear-gradient(darkgrey, lightgrey);
+}
 
 
 

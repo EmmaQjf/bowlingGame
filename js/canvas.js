@@ -12,7 +12,7 @@ const lane = drawRect(30,0,180,600,'#8B4513');
  const ball = {
   x: canvas.width/2,
   y: 500,
-  r: 20,
+  r: 21,
   speed: null,
   velocityX: null,
   velocityY: null,
@@ -28,6 +28,8 @@ const lane = drawRect(30,0,180,600,'#8B4513');
 
  const ball_start_x = ball.x;
  const ball_start_y = ball.y;
+ const pinKnockSound = new Audio("https://docs.google.com/uc?export=download&id=19CCo3gZzRhSBW43cVHFiQmJdiFJPuXE6")
+
 
  
  // draw bowling lane and ball
@@ -277,6 +279,7 @@ function dragBall(evt) {
     for (let pin of pins) {
     if (Math.sqrt((ball.x - pin.x) * (ball.x - pin.x) + (ball.y - pin.y) * (ball.y - pin.y)) <= (ball.r + pin.r)){
        knockedPin ++;
+       pinKnockSound.play();
        pins.splice(index,1);
        console.log(knockedPin);
     }
