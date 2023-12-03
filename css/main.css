@@ -10,6 +10,69 @@ body{
     align-items: center;
     justify-content: center;
     text-align: center;
+    height: 100vh;
+}
+/* style the blur background when user exits the game */
+ #blur_background{
+    background-color: black;
+    opacity: 0.8;
+    position: absolute;
+    right: 3rem;
+    top: 2rem;
+    width: 1rem;
+    height: 1rem;
+    display: none;
+}
+.blur_background {
+    transform: scale(10000);
+}
+
+ /* style the close button  */
+#close_button_background{
+    border-radius: 50%;
+}
+.close_button {
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    opacity: 0.4;
+    background-color: skyblue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .close_button:hover {
+    opacity: 1;
+  }
+  .close_button:before, .close_button:after {
+    position: absolute;
+    left: 20px;
+    content: ' ';
+    height: 30px;
+    width: 3px;
+    background-color: #333;
+  }
+  
+  .close_button:before {
+    transform: rotate(45deg);
+  }
+  .close_button:after {
+    transform: rotate(-45deg);
+  }
+  
+  
+/* style h1 element  */
+h1 {
+    text-shadow:  
+    1px -4px 2px lightseagreen,
+    0 0 1rem skyblue,
+    0 -8px 0.4em blue;
+    font-size: 3rem;
+    margin-top: 1rem;
+    box-shadow: 5px 5px 0.4 grey;
 }
 /* style the table  */
 table{
@@ -44,15 +107,50 @@ tr:nth-child(2) > td:last-child{
     background-color: lightskyblue;
 }
 
-#play_again{
-    display: block;
+button {
     margin: 1rem auto;
     size: 1rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-image: linear-gradient(to top, lightskyblue 0%, lightseagreen 100%);
+    border: none;
+    color: black;
+    box-shadow: 0 0 200px #eee;
+    padding: 0.5rem;
+    text-align: center;
+    transition: 0.5s;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 16px;
+    display: block;   
 }
 
-#play_again:hover {
-    background-image: linear-gradient(darkgrey, lightgrey);
+button:hover {
+    box-shadow: 0 0 20px gray;
+    color: #eee;
+  }
+
+
+#exit_game_container {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    width: 30vw;
+    height: 40vh;
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.5rem black solid;
+    visibility: hidden;
+    z-index: 3;
+}
+
+#exit_game_container > h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 

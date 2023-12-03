@@ -18,27 +18,43 @@ header {
     padding: 0.5rem;
 }
 
-#circle {
-    border: 0.2rem solid white;
-    padding: 0.1rem;
-    border-radius:50% ;
+/* style the close button  */
+#close_button_background{
+    border-radius: 50%;
+}
+.close_button {
+    position: absolute;
+   left: 1rem;
+    top: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    position:relative;
-}
-
-#cross {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: white;
+    background-image: linear-gradient(to right, #ff8000 0%, #ff5e00 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5
+  }
+  .close_button:hover {
+    box-shadow: 0 0 50px red;
+    transform: scale(1.1);
+  }
+  .close_button:before, .close_button:after {
     position: absolute;
-    left: 0.25rem;
-    top: -0.1rem;
-}
-
-#circle:hover {
-    background-color: blue;
-}
+    left: 20px;
+    content: ' ';
+    height: 30px;
+    width: 3px;
+    background-color: #333;
+  }
+  
+  .close_button:before {
+    transform: rotate(45deg);
+  }
+  .close_button:after {
+    transform: rotate(-45deg);
+  }
+  
 main {
   display: flex;
   flex-direction: column;

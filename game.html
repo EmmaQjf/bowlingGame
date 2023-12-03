@@ -9,7 +9,11 @@
     <script defer src="./js/testgameboard.js"></script>
     <title>Bowling Game</title>
 </head>
-<body>
+<body >
+    <div id = "close_button_background">
+        <div class = "close_button"></div>
+    </div>
+    <div id = "blur_background"></div>
     <h1>Bowling Game</h1>
     <table>
         <tr id ="gameround">
@@ -76,6 +80,11 @@
     </table>
     <canvas id = "bowling"></canvas>
     <button id = "play_again">Play Again</button>
+    <div  id = "exit_game_container">
+        <h2>Are you sure?</h2>
+        <button id = "exit_game" onclick="location.href='https://www.google.com/'" >Yes, exit the game </button>
+        <button id = "backto_game" onclick="window.location.href='game.html'">No, take me back to the game</button>
+    </div>
 
    
     

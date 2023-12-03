@@ -29,7 +29,7 @@ const lane = drawRect(30,0,180,600,'#8B4513');
  const ball_start_x = ball.x;
  const ball_start_y = ball.y;
  const pinKnockSound = new Audio("https://docs.google.com/uc?export=download&id=19CCo3gZzRhSBW43cVHFiQmJdiFJPuXE6")
-
+ const gruntSound = new Audio("https://docs.google.com/uc?export=download&id=10MGDofCN3u6vJ_Z2UZTdM9MRI9jZv7cG")
 
  
  // draw bowling lane and ball
@@ -184,6 +184,7 @@ function mouse_up(evt) {
     let tan = (opp/adj);
     //compute the arc tangent.π/2 <= θ <= π/2 (radians)
     angleRadian = Math.atan(tan);
+    gruntSound.play();
   throwBall();
 }
 

@@ -16,9 +16,17 @@ let scoreboard;
 
   /*----- cached elements  -----*/
 
-let total = document.getElementById('total');
+const total = document.getElementById('total');
+const closeButton = document.getElementById('close_button_background')
+const blurBackground = document.getElementById('blur_background')
 
 
+  /*----- event Listeners  -----*/
+closeButton.addEventListener('click', function () {
+    document.getElementById('exit_game_container').style.visibility = "visible";
+    blurBackground.style.display = "block";
+    blurBackground.classList.add("blur_background");
+})
 
   /*----- functions -----*/
 function init() {
