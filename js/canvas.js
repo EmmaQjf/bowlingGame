@@ -12,7 +12,7 @@ const lane = drawRect(30,0,180,600,'#8B4513');
  const ball = {
   x: canvas.width/2,
   y: 500,
-  r:15,
+  r: 20,
   speed: null,
   velocityX: null,
   velocityY: null,
@@ -171,7 +171,7 @@ function mouse_up(evt) {
    let adj = distanceY;
     let opp = distanceX;
     //represents the tangent value.
-    tan = (opp/adj);
+    let tan = (opp/adj);
     //compute the arc tangent.π/2 <= θ <= π/2 (radians)
     angleRadian = Math.atan(tan);
   throwBall();
@@ -213,18 +213,33 @@ function dragBall(evt) {
       ball.y = ball.y - Math.cos(angleRadian)*20;
       ball.x = ball.x - Math.sin(angleRadian)*20;
       if (!hittingPins) {
-        collision();
+        collision_on_gutter();
       } else {
         knockingPinsDown();
-        // update the scoreboard
       };
-      
       if (ball.y <= -50 ){
        clearInterval(ballRolling);
+       CountScoreAsThrowingBall(knockedPin);
        ball.x = canvas.width/2;
        ball.y = 500;
        drawCircle(ball.x, ball.y, ball.r, ball.color);
        knockedPin = 0;
+       console.log(count);
+       // reset the all the pins and draw the pins
+       if (count % 2 === 0){
+        pins = []; 
+        pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+      initBall();
+       }
       }
       }
     ,100)
@@ -262,29 +277,10 @@ function dragBall(evt) {
   }
   
   
-
-//   function ballMoving(){
-//       drawRect(30,0,180,600,"#8B4513");
-//       drawRect(0,0,30,600,"grey");
-//       drawRect(210,0,30,600,"grey")
-//       initBall();
-//       ball.y = ball.y - Math.cos(angelRadian)*20;
-//       ball.x = ball.x - Math.sin(angelRadian)*20;
-//       collision();
-//   }
-// let ballRolling
-//   function start(){ 
-//      ballRollingonLane = setInterval(ballMoving,100)
-//   }
-
-//   function stop(){
-//     clearInterval(ballRollingonLane);
-//   }
-
-
-function collision() {
+function collision_on_gutter() {
   if (ball.x >= canvas.width -25 || ball.x <= 27) {
     angleRadian = 0;
+    knockedPin = 0;
     // if (ball.x < 120) {
     //   ball.x -= 15;
     // } else {

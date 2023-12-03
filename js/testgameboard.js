@@ -1,3 +1,4 @@
+
 /*----- constants -----*/
 // const symbols = {
 //     "0":"-",
@@ -8,7 +9,7 @@
   /*----- state variables -----*/
 let count; // track how many throw it is.
 let frame; 
-let whichtry; // is it second or first throw for each round
+let whichtry; // is it second or first throw for each frame
 let sum;
 let scoreboard;
 
@@ -24,7 +25,7 @@ function init() {
     frame = null;
     whichtry = null;
     sum = 0;
-    knockedPin = null;
+    // knockedPin = null;
     scoreboard = [
         [null,null,null],
         [null,null,null],
@@ -50,7 +51,8 @@ function firstOrSecondTry(count) {
     }
    }
 
-function throwBall (knockedPin) {
+function CountScoreAsThrowingBall (knockedPin) {
+    // console.log(knockedPin);
     count = count +1; 
 frame = Math.floor((count-1)/2);
 whichtry = firstOrSecondTry(count);
@@ -102,30 +104,13 @@ function checkSpare() {
           } 
 }
 
-throwBall(10);
-console.log(count);
-console.log(scoreboard);
-throwBall(5);
-throwBall(5);
-throwBall(1);
-throwBall(5);
-throwBall(4);
-throwBall(3);
-
-
-
-// let eachThrowCellID = `r2c${round}throw${whichtry}`;
-// console.log(eachThrowCellID);
-// const cellEl = document.getElementById(eachThrowCellID);
-// cellEl.innerHTML = "88";
-// let eachCellValue = cellEl.innerHTML; 
-
-// let eachroundSum = `r3c${round}`;
-// console.log(eachroundSum);
-// const eachroundSumEl = document.getElementById(eachroundSum);
-// eachroundSumEl.innerHTML = "0";
-// let eachroundSumValue = eachroundSumEl.innerHTML; 
-// console.log(eachroundSumValue);
+// CountScoreAsThrowingBall (10);
+// CountScoreAsThrowingBall (5);
+// CountScoreAsThrowingBall (5);
+// CountScoreAsThrowingBall (1);
+// CountScoreAsThrowingBall (5);
+// CountScoreAsThrowingBall (4);
+// CountScoreAsThrowingBall (3);
 
 
 function renderBoard() {
