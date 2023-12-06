@@ -63,7 +63,6 @@ main {
 }
 
 #gradiant_box {
-    /* margin: 30vh auto; */
   box-sizing: border-box;
   margin-top: 25vh;
   position: relative;

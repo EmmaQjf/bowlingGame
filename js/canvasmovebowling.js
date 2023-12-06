@@ -1,0 +1,411 @@
+/*----- constants -----*/
+
+const canvas = document.getElementById('bowling');
+const context = canvas.getContext('2d');
+canvas.width = 240;
+canvas.height = 600;
+canvas.style.cursor = 'crosshair';
+const lane = drawRect(30,0,180,600,'#8B4513');
+ const channelLeft = drawRect(0,0,30,600,'grey');
+ const channelRight = drawRect(210,0,30,600,'grey')
+
+ const ball = {
+  x: canvas.width/2,
+  y: 500,
+  r: 21,
+  speed: null,
+  velocityX: null,
+  velocityY: null,
+  color:"red",
+ }
+
+ // define the two arrows
+const leftArrow = new Image();
+leftArrow.src = "./img/left_arrow.png";
+leftArrow.onload = function() {
+    context.drawImage(leftArrow,30,480,30,30);
+}
+
+const rightArrow = new Image();
+rightArrow.src = "./img/right_arrow.png";
+rightArrow.onload = function() {
+    context.drawImage(rightArrow,180,480,30,30);
+}
+
+
+// add keyboard reaction to the arrows
+let rightPressed = false;
+let leftPressed = false;
+
+
+ const pin = {
+  x: canvas.width/2 - 15,
+  y: 20,
+  r: 10,
+  color: 'white'
+ }
+
+
+ 
+// document.addEventListener("keydown", keyDownHandler, false);
+// document.addEventListener("keyup", keyUpHandler, false);
+
+// function keyDownHandler(e) {
+//     if (e.key === "Right" || e.key === "ArrowRight") {
+//       rightPressed = true;
+//     } else if (e.key === "Left" || e.key === "ArrowLeft") {
+//       leftPressed = true;
+//     }
+//     if (rightPressed) {
+//         ball.x = Math.min(ball.x+7,canvas.width-30);
+//       } else if (leftPressed) {
+//         ball.x = Math.max(ball.x-7,30);
+//       }
+      
+      
+//       console.log(ball_start_x, ball_start_y);
+//      drawRect(30,0,180,600,'#8B4513'); //lane
+//      drawRect(0,0,30,600,'grey'); //leftgutter
+//      drawRect(210,0,30,600,'grey');//rightgutter
+//       drawCircle(ball.x, ball.y, ball.r, ball.color); //bowling ball
+//       ball_start_x = ball.x;
+//       ball_start_y = ball.y;
+//       context.drawImage(leftArrow,30,480,30,30);
+//       context.drawImage(rightArrow,180,480,30,30);
+
+//   }
+  
+// function keyUpHandler(e) {
+//     if (e.key === "Right" || e.key === "ArrowRight") {
+//       rightPressed = false;
+//     } else if (e.key === "Left" || e.key === "ArrowLeft") {
+//       leftPressed = false;
+//     }
+//   }
+//  const ball_start_x = ball.x;
+//  const ball_start_y = ball.y;
+ const pinKnockSound = new Audio("https://docs.google.com/uc?export=download&id=19CCo3gZzRhSBW43cVHFiQmJdiFJPuXE6")
+ const gruntSound = new Audio("https://docs.google.com/uc?export=download&id=10MGDofCN3u6vJ_Z2UZTdM9MRI9jZv7cG")
+
+ 
+
+ // draw bowling lane and ball
+function drawRect(x,y,w,h,color) {
+  context.fillStyle = color;
+  context.fillRect(x,y,w,h);
+}
+
+function drawCircle (x,y,r,color) {
+  context.fillStyle = color;
+  context.beginPath();
+context.arc(x,y,r,0,Math.PI*2,false)
+context.closePath();
+context.fill();
+}
+
+
+
+function draw_pins() {
+  for (let pin of pins){
+    context.fillStyle = pin.color;
+     context.beginPath();
+    context.arc(pin.x,pin.y,pin.r,0,Math.PI*2,false)
+    context.closePath();
+    context.fill();
+  }
+}
+
+ 
+ /*----- state variables -----*/
+ let pins = []; 
+ pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+
+ let ball_end_x = null;
+ let ball_end_y = null;
+ let distanceX;
+ let distanceY;
+ let is_draggingBall = false;
+ let mouseX, mouseY;
+ let angleRadian;
+ let knockedPin = 0;
+ let hittingPins;
+ let ball_start_x = null;
+let ball_start_y = null;
+
+
+// move mouse to move the ball to left or right 
+
+let Is_ball_move_left_or_right =false;
+  canvas.addEventListener("click",ballMoveLeftOrRight);
+function ballMoveLeftOrRight (evt){
+    Is_ball_move_left_or_right =true;
+  let rectXY = canvas.getBoundingClientRect();
+  let mouseXX =  evt.clientX - rectXY.left;
+  console.log(mouseXX)
+//   if (mouseXX > ball.x) {
+//     ball.x = Math.min(ball.x+7,canvas.width-30);
+// } else if (mouseXX < ball.x) {
+//   ball.x = Math.max(ball.x-7,30);
+// }
+ ball.x = mouseXX;
+ball_start_x = ball.x;
+ball_start_y = ball.y;
+
+
+drawRect(30,0,180,600,'#8B4513'); //lane
+drawRect(0,0,30,600,'grey'); //leftgutter
+drawRect(210,0,30,600,'grey');//rightgutter
+drawCircle(ball.x, ball.y, ball.r, ball.color); //bowling ball
+draw_pins() //drawpins;
+context.drawImage(leftArrow,30,480,30,30);
+context.drawImage(rightArrow,180,480,30,30);
+}
+  
+
+  /*----- cached elements  -----*/
+  const playAgain = document.getElementById('play_again');
+
+  function initBall() {
+    drawCircle(ball.x, ball.y, ball.r, ball.color);
+    draw_pins();
+  }
+
+  initBall();
+  
+  function initCanvas() {
+ pins = []; 
+ pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+ pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+ pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+ ball.x = canvas.width/2;
+ ball.y = 500;
+ knockedPin = 0;
+ is_draggingBall = false;
+ initBall();
+ count = 0;
+    frame = null;
+    whichtry = null;
+    sum = 0;
+    // knockedPin = null;
+    scoreboard = [
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null],
+        [null,null,null]
+    ]
+    total.innerHTML = '';
+    renderBoard();
+  }
+
+  /*----- event listeners -----*/
+
+canvas.addEventListener('mousedown', grabBall);
+canvas.addEventListener('mouseup', mouse_up);
+
+canvas.addEventListener('mousemove', dragBall)
+playAgain.addEventListener("click", initCanvas);
+
+
+/*----- functions -----*/
+
+// grab the ball
+function grabBall(evt) {
+    // check the condition
+    Is_ball_move_left_or_right =true;
+  let rect = canvas.getBoundingClientRect();
+  let mouseY = evt.clientY - rect.top;
+  let mouseX =  evt.clientX - rect.left;
+  evt.preventDefault();
+
+  //check whether the mouse is inside the ball radius 
+  if (if_mouse_on_ball(mouseX, mouseY)) {
+    is_draggingBall = true;
+    canvas.style.cursor = 'grab';
+    // return;
+  } else {
+    is_draggingBall = false;
+  } 
+}
+
+// mouse_up function
+function mouse_up(evt) {
+  if (!is_draggingBall) {
+    return;
+  }
+  evt.preventDefault();
+  is_draggingBall = false;
+  ball.x = mouseX;
+  ball.y = mouseY;
+  // redraw everything;
+  // may have a problem later when layer throws the ball the second chance.
+  drawRect(30,0,180,600,'#8B4513');
+  drawRect(0,0,30,600,'grey');
+  drawRect(210,0,30,600,'grey')
+  initBall();
+  ball_end_x = mouseX;
+  ball_end_y = mouseY;
+  canvas.style.cursor = 'crosshair';
+  is_ballroling = 'true';
+  // define the angels the ball will go 
+   let adj = distanceY;
+    let opp = distanceX;
+    //represents the tangent value.
+    let tan = (opp/adj);
+    //compute the arc tangent.π/2 <= θ <= π/2 (radians)
+    angleRadian = Math.atan(tan);
+    gruntSound.play();
+  throwBall();
+}
+
+function if_mouse_on_ball(mouseX, mouseY) {
+  const distance = Math.sqrt(
+    ((mouseX-ball_start_x)*(mouseX-ball_start_x))+((mouseY-ball_start_y)*(mouseY-ball_start_y))
+  )
+  if (distance <= ball.r) {
+    return true;
+  }
+  return false;
+}
+
+// drag the ball and caculate the angel and make the ball move in that direction
+function dragBall(evt) {
+  if (!is_draggingBall) {
+    return;
+  } else {
+  evt.preventDefault();
+  let rect = canvas.getBoundingClientRect();
+   mouseX = evt.clientX - rect.left;
+   mouseY = evt.clientY - rect.top;
+  ball.x = mouseX;
+  ball.y = mouseY;
+  distanceX = mouseX - ball_start_x;
+  distanceY = mouseY - ball_start_y;
+  }
+}
+
+
+  function throwBall (){
+    if_hit_the_pins(angleRadian);
+    let ballRolling = setInterval(()=>{
+      drawRect(30,0,180,600,"#8B4513");
+      drawRect(0,0,30,600,"grey");
+      drawRect(210,0,30,600,"grey")
+      initBall();
+      ball.y = ball.y - Math.cos(angleRadian)*20;
+      ball.x = ball.x - Math.sin(angleRadian)*20;
+      if (!hittingPins) {
+        collision_on_gutter();
+      } else {
+        knockingPinsDown();
+      };
+      // 
+      if (ball.y <= -50 ){
+       clearInterval(ballRolling);
+       CountScoreAsThrowingBall(knockedPin);
+       //reset the ball to the center,draw the ball, canvas and draw the arrows.
+       ball.x = canvas.width/2;
+       ball.y = 500;
+       drawCircle(ball.x, ball.y, ball.r, ball.color);
+       context.drawImage(leftArrow,30,480,30,30);
+       context.drawImage(rightArrow,180,480,30,30);
+       knockedPin = 0;
+       
+       // reset the all the pins and draw the pins for new frame
+       if(count % 2 === 0){
+        pins = []; 
+        pins.push({x:pin.x -30 , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 30 , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 60 , y:pin.y , r:pin.r , color:pin.color })
+        pins.push({x:pin.x - 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 15 , y:pin.y + 20 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 45 , y:pin.y + 20 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x , y:pin.y + 40 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 30 , y:pin.y + 40 , r:pin.r , color:pin.color })
+        pins.push({x:pin.x + 15 , y:pin.y + 60 , r:pin.r , color:pin.color })
+      initBall();
+       }
+       // last frame there is no strike and redraw the board without pins and ball
+       // after last frame is a strike, two throws done, redraw the board without pins and ball.
+       if ((scoreboard[9][0] !== 10 && count === 20)|| count === 22) {
+        drawRect(30,0,180,600,'#8B4513'); //lane
+        drawRect(0,0,30,600,'grey'); //leftgutter
+        drawRect(210,0,30,600,'grey');//rightgutter
+        showGameResult()
+   
+       }
+      }
+    }
+    ,100)
+    
+   
+
+  }
+
+//define the range of whether the pins will be knocked
+  // check the angle of the ball being thrown is within the range of hititng the pins.
+  const left_Collision_PointX = pin.x -30 -ball.r;
+  //  const right_Collision_PointX = pin.x +60 + ball.r;
+  const  max_pin_hitting_tan = (left_Collision_PointX  - canvas.width/2)/(ball.y-pin.y);
+   const max_pin_hitting_angleRadian = Math.atan(max_pin_hitting_tan);
+  
+
+  function if_hit_the_pins(angleRadian) {
+    if (Math.abs(angleRadian) > Math.abs(max_pin_hitting_angleRadian)) {
+      knockedPin = 0;
+      hittingPins = false;
+    } else {
+      hittingPins = true;
+    }
+  }
+
+// have the pins disappear 
+  function knockingPinsDown(){
+    let index = 0;
+  // find the shape range of the pins
+    for (let pin of pins) {
+    if (Math.sqrt((ball.x - pin.x) * (ball.x - pin.x) + (ball.y - pin.y) * (ball.y - pin.y)) <= (ball.r + pin.r)){
+       knockedPin ++;
+       pinKnockSound.play();
+       pins.splice(index,1);
+       console.log(knockedPin);
+    }
+    index ++;
+  }
+  }
+  
+  
+function collision_on_gutter() {
+  if (ball.x >= canvas.width -25 || ball.x <= 27) {
+    angleRadian = 0;
+    knockedPin = 0;
+  }
+}
+
+
+
+
+
+  

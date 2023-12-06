@@ -4,17 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
-    <script defer src="./js/canvas.js"></script>
+    <!-- <script defer src="./js/canvas.js"></script> -->
+    <script defer src="./js/canvasmovebowling.js"></script>
     <!-- <script defer src="./js/gameboard.js"></script> -->
     <script defer src="./js/testgameboard.js"></script>
     <title>Bowling Game</title>
 </head>
 <body >
+    <header>
+    <div id="audio-container">
+        <audio id="music-track" src="https://docs.google.com/uc?export=download&id=1iYIRH3IIONWTGt91cduTD6ncnmZXat7Q" type="audio/mpeg" loop></audio>
+        <button class="button" id="music-playbt">Play</button>
+        <input id="music-range" type="range" min="1" max="100" value="20" class="slider" >
+        <label id="volume"></label>
+    </div>
+    
     <div id = "close_button_background">
         <div class = "close_button"></div>
     </div>
     <div id = "blur_background"></div>
-    <h1>Bowling Game</h1>
+    <button id = "user-guide-btn"> User Guide</button>
+    <div class = "pop-up-box" id = "user_guide">
+        <ul>
+            <li>Mouse down to click the ball to grab it, then drag it. </li>
+            <li>Once you drag your ball in a desired position, mouse up and the ball will shoot out.</li>
+         </ul>
+         <!-- <button><a href="">Exit</a></button> -->
+
+    </div>
+   </header>
+
+   <h1>Bowling Game</h1>
     <table>
         <tr id ="gameround">
             <td colspan="2">1</td>
@@ -30,63 +50,55 @@
             <td>total</td>
         </tr>
         <tr id ="eachplay">
-            <td id = "r2c0throw0"></td>
-            <td id = "r2c0throw1"></td>
-            <td id = "r2c1throw0"></td>
-            <td id = "r2c1throw1"></td>
-            <td id = "r2c2throw0"></td>
-            <td id = "r2c2throw1"></td>
-            <td id = "r2c3throw0"></td>
-            <td id = "r2c3throw1"></td>
-            <td id = "r2c4throw0"></td>
-            <td id = "r2c4throw1"></td>
-            <td id = "r2c5throw0"></td>
-            <td id = "r2c5throw1"></td>
-            <td id = "r2c6throw0"></td>
-            <td id = "r2c6throw1"></td>
-            <td id = "r2c7throw0"></td>
-            <td id = "r2c7throw1"></td>
-            <td id = "r2c8throw0"></td>
-            <td id = "r2c8throw1"></td>
-            <td id = "r2c9throw0"></td>
-            <td id = "r2c9throw1"></td>
+            <td id = "c0idx0"></td>
+            <td id = "c0idx1"></td>
+            <td id = "c1idx0"></td>
+            <td id = "c1idx1"></td>
+            <td id = "c2idx0"></td>
+            <td id = "c2idx1"></td>
+            <td id = "c3idx0"></td>
+            <td id = "c3idx1"></td>
+            <td id = "c4idx0"></td>
+            <td id = "c4idx1"></td>
+            <td id = "c5idx0"></td>
+            <td id = "c5idx1"></td>
+            <td id = "c6idx0"></td>
+            <td id = "c6idx1"></td>
+            <td id = "c7idx0"></td>
+            <td id = "c7idx1"></td>
+            <td id = "c8idx0"></td>
+            <td id = "c8idx1"></td>
+            <td id = "c9idx0"></td>
+            <td id = "c9idx1"></td>
             <td rowspan="2" id = "total"></td>
             
         </tr>
         <tr id = "row3">
-            <!-- <td colspan="2" id="r3c0"></td>
-            <td colspan="2" id="r3c1"></td>
-            <td colspan="2" id="r3c2"></td>
-            <td colspan="2" id="r3c3"></td>
-            <td colspan="2" id="r3c4"></td>
-            <td colspan="2" id="r3c5"></td>
-            <td colspan="2" id="r3c6"></td>
-            <td colspan="2" id="r3c7"></td>
-            <td colspan="2" id="r3c8"></td>
-            <td colspan="2" id="r3c9"></td> -->
-            <td colspan="2" id="r2c0throw2"></td>
-            <td colspan="2" id="r2c1throw2"></td>
-            <td colspan="2" id="r2c2throw2"></td>
-            <td colspan="2" id="r2c3throw2"></td>
-            <td colspan="2" id="r2c4throw2"></td>
-            <td colspan="2" id="r2c5throw2"></td>
-            <td colspan="2" id="r2c6throw2"></td>
-            <td colspan="2" id="r2c7throw2"></td>
-            <td colspan="2" id="r2c8throw2"></td>
-            <td colspan="2" id="r2c9throw2"></td>
-            
+            <td colspan="2" id="c0idx2"></td>
+            <td colspan="2" id="c1idx2"></td>
+            <td colspan="2" id="c2idx2"></td>
+            <td colspan="2" id="c3idx2"></td>
+            <td colspan="2" id="c4idx2"></td>
+            <td colspan="2" id="c5idx2"></td>
+            <td colspan="2" id="c6idx2"></td>
+            <td colspan="2" id="c7idx2"></td>
+            <td colspan="2" id="c8idx2"></td>
+            <td colspan="2" id="c9idx2"></td>    
         </tr>
-
     </table>
+
     <canvas id = "bowling"></canvas>
     <button id = "play_again">Play Again</button>
-    <div  id = "exit_game_container">
+    <div class = "pop-up-box" id = "exit_game_container">
         <h2>Are you sure?</h2>
         <button id = "exit_game" onclick="location.href='https://www.google.com/'" >Yes, exit the game </button>
         <button id = "backto_game" onclick="window.location.href='game.html'">No, take me back to the game</button>
-    </div>
+    </div>  
+    <div class = "pop-up-box" id = "game_result">
+        <h2>Congrats!Your final score is <span id = "score"><span></h2>
+        <!-- <button id = "leave_game" onclick="location.href='https://www.google.com/'" >Yes, exit the game </button>
+        <button id = "returnto_game" onclick="window.location.href='game.html'">No, take me back to the game</button> -->
+    </div>  
 
-   
-    
 </body>
 </html>

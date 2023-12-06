@@ -1,15 +1,15 @@
 // define the board 
 let scoreboard = [
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0],
-	[0,0,0]
+	[0,0,0], // frame 1, sum of frame 1
+	[0,0,0], // frame 2, sum of frame 2
+	[0,0,0], // frame 3, sum of frame 3
+	[0,0,0], // frame 4, sum of frame 4
+	[0,0,0], // frame 5, sum of frame 5
+	[0,0,0], // frame 6, sum of frame 6
+	[0,0,0], // frame 7, sum of frame 7
+	[0,0,0], // frame 8, sum of frame 8
+	[0,0,0], // frame 9, sum of frame 19
+	[0,0,0]  // frame 10, sum of frame 10
 ]
 
 // let knockedPin = 88;

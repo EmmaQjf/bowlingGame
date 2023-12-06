@@ -9,11 +9,14 @@
 </head>
 <body>
     <header>
-        <audio id="background_music" autoplay loop>
+        <audio id="background_music"  type="audio/wav" autoplay loop>
+        <source src="https://docs.google.com/uc?export=download&id=1CzOKZrKHJem-TTcHUrlvji0LzY4s7Cuc">
+        <source src="./music/game_backgroundmusic.mp3" type="audio/wav">
+        </audio>
+        
             <!-- https://softgateon.herokuapp.com/directlink/ to generate the link  -->
-            <source src="https://docs.google.com/uc?export=download&id=1CzOKZrKHJem-TTcHUrlvji0LzY4s7Cuc" type="audio/wav">
-          </audio>
-        <div id = "close_button_background" onClick = "location.href = 'https://www.google.com/'">
+       
+        <div id = "close_button_background" onClick = "location.href='https://www.google.com/'">
             <div class = "close_button"></div>
         </div>
         
@@ -21,6 +24,7 @@
     <main>
         <div id = "gradiant_box">
         <img src="img/bowling_img.jpeg"/>
+        <!-- <img src="https://i.imgur.com/0g4Tp7o.jpg"/> -->
         </div>
        
         <button onclick="window.location.href='game.html'">start</button>

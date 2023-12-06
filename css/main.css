@@ -12,6 +12,38 @@ body{
     text-align: center;
     height: 100vh;
 }
+header {
+    display: flex;
+}
+
+/* style userguide */
+#user-guide-btn{
+    position: absolute;
+    right: 6rem;
+    top: 0.5rem;
+    text-align: right;
+}
+
+
+#user_guide > ul > li{
+ font-size: 1.5rem;
+ padding: 0.5rem;
+}
+
+/* audio slider bar */
+#audio-container{
+    display: flex;
+    position: absolute;
+    left: 1rem;
+    top: 0.1rem;
+}
+#audio-container > label {
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 /* style the blur background when user exits the game */
  #blur_background{
     background-color: black;
@@ -24,7 +56,8 @@ body{
     display: none;
 }
 .blur_background {
-    transform: scale(10000);
+    transform: scale(250, 120);
+    /* transform-origin: 100vw 100vh; */
 }
 
  /* style the close button  */
@@ -34,7 +67,7 @@ body{
 .close_button {
     position: absolute;
     right: 2rem;
-    top: 1rem;
+    top: 1.5rem;
     width: 2.5rem;
     height: 2.5rem;
     opacity: 0.4;
@@ -79,7 +112,7 @@ table{
     width: 80%;
     border: 2px solid black;
     border-collapse: collapse;
-    margin: 1rem auto 2rem;
+    margin: 1rem auto 1.5rem;
 }
 
 td {
@@ -131,8 +164,8 @@ button:hover {
     color: #eee;
   }
 
-
-#exit_game_container {
+.pop-up-box {
+    padding: 2rem;
     position: absolute;
     top: 30%;
     left: 35%;
@@ -152,6 +185,8 @@ button:hover {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
+
+
 
 
 
