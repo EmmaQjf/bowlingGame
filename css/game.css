@@ -12,10 +12,11 @@ body{
     text-align: center;
     height: 100vh;
 }
+
+/*----- style header -----*/
 header {
     display: flex;
 }
-
 /* style userguide */
 #user-guide-btn{
     position: absolute;
@@ -23,7 +24,6 @@ header {
     top: 0.5rem;
     text-align: right;
 }
-
 
 #user_guide > ul > li{
  font-size: 1.5rem;
@@ -57,7 +57,6 @@ header {
 }
 .blur_background {
     transform: scale(250, 120);
-    /* transform-origin: 100vw 100vh; */
 }
 
  /* style the close button  */
@@ -96,7 +95,7 @@ header {
     transform: rotate(-45deg);
   }
   
-  
+/*----- style the gamebaord-----*/
 /* style h1 element  */
 h1 {
     text-shadow:  
@@ -105,7 +104,6 @@ h1 {
     0 -8px 0.4em blue;
     font-size: 3rem;
     margin-top: 1rem;
-    box-shadow: 5px 5px 0.4 grey;
 }
 /* style the table  */
 table{
@@ -121,8 +119,8 @@ td {
     width: 4vmin;
     height: 4vmin;
     font-size: 1.5rem;
-    
 }
+
 tr:first-child{
     background-color: #333;
     color: white;
@@ -140,6 +138,7 @@ tr:nth-child(2) > td:last-child{
     background-color: lightskyblue;
 }
 
+/* style the button */
 button {
     margin: 1rem auto;
     size: 1rem;

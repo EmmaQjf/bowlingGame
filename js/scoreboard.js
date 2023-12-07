@@ -1,10 +1,11 @@
-
+/*----- scoreboard -----*/
 /*----- constants -----*/
-// const symbols = {
-//     "0":"-",
-//     "10": "X",
-//     "null": ""
-// }
+const symbols = {
+    "0":"-",
+    "10": "X",
+    "null": "",
+    "spare":"/"
+}
 
   /*----- state variables -----*/
 let count; // track how many throw it is.
@@ -19,12 +20,11 @@ let scoreboard;
  
    /*----- event Listeners  -----*/
   /*----- functions -----*/
-function init() {
+function initScoreBoard() {
     count = 0;
     frame = null;
     whichtry = null;
     sum = 0;
-    // knockedPin = null;
     scoreboard = [
         [null,null,null], //frame 1, sum of frame 1
         [null,null,null], //frame 2, sum of frame 2
@@ -37,10 +37,12 @@ function init() {
         [null,null,null], //frame 9, sum of frame 9
         [null,null,null] //frame 10, sum of frame 10
     ]
+    total.innerHTML = '';
+    renderBoard();
 }
 
+initScoreBoard();
 
-init();
 // define the index of the each throw in the frame 
 function what_index(count) {
     if (count % 2 === 0) {
@@ -50,31 +52,14 @@ function what_index(count) {
     }
    }
 
+
 // main logic 
-// function CountScoreAsThrowingBall (knockedPin) {
-//     // console.log(knockedPin);
-//     count = count +1; 
-// frame = Math.floor((count-1)/2);
-// whichtry = what_index(count);
-// scoreboard[frame][whichtry] = knockedPin;
-
-// // find the sum of the score and update it on the html
-// // sum = sum + scoreboard[round][whichtry];
-
-// sum = getSum(knockedPin);
-// scoreboard[frame][2] = sum;
-// total.innerHTML = sum;
-// renderBoard();
-// // show the win/loss pop up window 
-// }
-
 function CountScoreAsThrowingBall (knockedPin) {
     count = count +1; 
     frame = Math.floor((count-1)/2);
     whichtry = what_index(count);
     if (count <= 20){
     scoreboard[frame][whichtry] = knockedPin;
-    console.log(scoreboard);
     // find the sum of the score and update it on the html
     // sum = sum + scoreboard[round][whichtry];
     sum = getSum(knockedPin)}
@@ -96,16 +81,10 @@ function CountScoreAsThrowingBall (knockedPin) {
 }   
 
 
-
-
-// function updateBoard(frame,whichtry) {
-//     scoreboard[frame-offsetCol][2] =  scoreboard[frame-1][2] + scoreboard[frame][whichtry];
-// }
-
 // getSum function 
 function getSum(knockedPin) {
     // if there is a strike
-    if(knockedPin === 10 && whichtry === 0){
+    if (knockedPin === 10 && whichtry === 0) {
         sum = sum + scoreboard[frame][whichtry];
         count ++;
         scoreboard[frame][1] = null;
@@ -142,13 +121,13 @@ function renderBoard() {
 		colArr.forEach(function(rowVal,rowIdx){
 			const eachThrowCellID = `c${colIdx}idx${rowIdx}`
 			const cellEl = document.getElementById(eachThrowCellID);
-            if (rowIdx === 0 && rowVal === 10){ cellEl.innerHTML = ' X ';
+            if (rowIdx === 0 && rowVal === 10){ cellEl.innerHTML = symbols[10];
             }  else if (rowVal === null){
-                cellEl.innerHTML = '';
+                cellEl.innerHTML = symbols[null];
             } else if (rowVal === 0){
-                cellEl.innerHTML = '-';
+                cellEl.innerHTML = symbols[0];
             }else if (rowIdx == 1 && colArr[0]+rowVal === 10){
-                cellEl.innerHTML = '/';
+                cellEl.innerHTML = symbols["spare"];
             } else {
                 cellEl.innerHTML = rowVal;
             }
@@ -186,12 +165,13 @@ userGuide.addEventListener('click', function () {
 /*----- game result congrats Page.   -----*/
 const gameResult = document.getElementById("game_result");
 const score = document.getElementById("score");
+
+//the function will be called if the game is over ;
 function showGameResult() {
     gameResult.style.visibility = "visible";
     blurBackground.style.display = "block";
     blurBackground.classList.add("blur_background");
-    score.innerHTML = `${sum}`
-    
+    score.innerHTML = `${sum}`  
 }
 gameResult.addEventListener('click', function () {
     gameResult.style.visibility = "hidden";
@@ -201,12 +181,14 @@ gameResult.addEventListener('click', function () {
 })
 /*----- move the slider bar to adjust the music volume  -----*/
 // set music sound 
-const musicTrack = document.getElementById('music-track')
+  const musicTrack = document.getElementById('music-track')
   const musicRange = document.getElementById('music-range')
   const volume = document.getElementById('volume')
   const musicPlayBtn = document.getElementById('music-playbt')
 
   volume.innerHTML = musicRange.value
+    // Event listener to set volume when slider is changed
+  musicRange.addEventListener('change', setVolume)
 
   // Function to change values on volume slider
   musicRange.oninput = function () {
@@ -226,6 +208,5 @@ const musicTrack = document.getElementById('music-track')
         musicPlayBtn.innerHTML = 'Play'
     }
   })
-  // Event listener to set volume when slider is changed
-  musicRange.addEventListener('change', setVolume)
+
 

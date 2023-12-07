@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/game.css">
     <!-- <script defer src="./js/canvas.js"></script> -->
     <script defer src="./js/canvasmovebowling.js"></script>
     <!-- <script defer src="./js/gameboard.js"></script> -->
-    <script defer src="./js/testgameboard.js"></script>
+    <script defer src="./js/scoreboard.js"></script>
     <title>Bowling Game</title>
 </head>
 <body >
@@ -26,11 +26,10 @@
     <button id = "user-guide-btn"> User Guide</button>
     <div class = "pop-up-box" id = "user_guide">
         <ul>
+            <li>Click on the bowling lane to move the ball to the left or right</li>
             <li>Mouse down to click the ball to grab it, then drag it. </li>
-            <li>Once you drag your ball in a desired position, mouse up and the ball will shoot out.</li>
+            <li>Once you drag your ball in the direction and to the desired position you like, mouse up and the ball will shoot out in the direction.</li>
          </ul>
-         <!-- <button><a href="">Exit</a></button> -->
-
     </div>
    </header>
 
@@ -70,8 +69,7 @@
             <td id = "c8idx1"></td>
             <td id = "c9idx0"></td>
             <td id = "c9idx1"></td>
-            <td rowspan="2" id = "total"></td>
-            
+            <td rowspan="2" id = "total"></td>  
         </tr>
         <tr id = "row3">
             <td colspan="2" id="c0idx2"></td>
@@ -87,7 +85,7 @@
         </tr>
     </table>
 
-    <canvas id = "bowling"></canvas>
+    <canvas id = "canvas"></canvas>
     <button id = "play_again">Play Again</button>
     <div class = "pop-up-box" id = "exit_game_container">
         <h2>Are you sure?</h2>

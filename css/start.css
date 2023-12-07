@@ -24,7 +24,7 @@ header {
 }
 .close_button {
     position: absolute;
-   left: 1rem;
+    left: 1rem;
     top: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
@@ -35,18 +35,18 @@ header {
     align-items: center;
     transition: 0.5
   }
-  .close_button:hover {
+.close_button:hover {
     box-shadow: 0 0 50px red;
     transform: scale(1.1);
   }
-  .close_button:before, .close_button:after {
+.close_button:before, .close_button:after {
     position: absolute;
     left: 20px;
     content: ' ';
     height: 30px;
     width: 3px;
     background-color: #333;
-  }
+}
   
   .close_button:before {
     transform: rotate(45deg);
@@ -75,7 +75,6 @@ img {
     width: 40vmin;
     border-radius: 10%;
 }
-
 
 main > button {
     display: block;
