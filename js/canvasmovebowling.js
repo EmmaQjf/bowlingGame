@@ -27,57 +27,17 @@ const pin = {
   }
  // define the two arrows
 const leftArrow = new Image();
-leftArrow.src = "./img/left_arrow.png";
+leftArrow.src = "./img/left-arrow.png";
 leftArrow.onload = function() {
-    context.drawImage(leftArrow,30,480,30,30);
+    context.drawImage(leftArrow,30,480,35,35);
 }
 
 const rightArrow = new Image();
-rightArrow.src = "./img/right_arrow.png";
+rightArrow.src = "./img/right-arrow.png";
 rightArrow.onload = function() {
-    context.drawImage(rightArrow,180,480,30,30);
+    context.drawImage(rightArrow,180,480,35,35);
 }
 
- // add keyboard reaction to the arrows
-// let rightPressed = false;
-// let leftPressed = false;
-// document.addEventListener("keydown", keyDownHandler, false);
-// document.addEventListener("keyup", keyUpHandler, false);
-
-// function keyDownHandler(e) {
-//     if (e.key === "Right" || e.key === "ArrowRight") {
-//       rightPressed = true;
-//     } else if (e.key === "Left" || e.key === "ArrowLeft") {
-//       leftPressed = true;
-//     }
-//     if (rightPressed) {
-//         ball.x = Math.min(ball.x+7,canvas.width-30);
-//       } else if (leftPressed) {
-//         ball.x = Math.max(ball.x-7,30);
-//       }
-      
-      
-//       console.log(ball_start_x, ball_start_y);
-//      drawRect(30,0,180,600,'#8B4513'); //lane
-//      drawRect(0,0,30,600,'grey'); //leftgutter
-//      drawRect(210,0,30,600,'grey');//rightgutter
-//       drawCircle(ball.x, ball.y, ball.r, ball.color); //bowling ball
-//       ball_start_x = ball.x;
-//       ball_start_y = ball.y;
-//       context.drawImage(leftArrow,30,480,30,30);
-//       context.drawImage(rightArrow,180,480,30,30);
-
-//   }
-  
-// function keyUpHandler(e) {
-//     if (e.key === "Right" || e.key === "ArrowRight") {
-//       rightPressed = false;
-//     } else if (e.key === "Left" || e.key === "ArrowLeft") {
-//       leftPressed = false;
-//     }
-//   }
-//  const ball_start_x = ball.x;
-//  const ball_start_y = ball.y;
  const pinKnockSound = new Audio("https://docs.google.com/uc?export=download&id=19CCo3gZzRhSBW43cVHFiQmJdiFJPuXE6")
  const gruntSound = new Audio("https://docs.google.com/uc?export=download&id=10MGDofCN3u6vJ_Z2UZTdM9MRI9jZv7cG")
 
@@ -126,20 +86,20 @@ let ball_start_x = null;
 let ball_start_y = null;
 let ball_end_x = null;
 let ball_end_y = null;
-let distanceX;
-let distanceY;
+let distanceX, distanceY;
 let is_draggingBall = false;
 let mouseX, mouseY;
 let angleRadian;
 let knockedPin = 0;
 let hittingPins;
-let Left_max_pin_hitting_tan
-let Right_max_pin_hitting_tan
+let Left_max_pin_hitting_tan,Right_max_pin_hitting_tan
 
 
 
   /*----- cached elements  -----*/
 const playAgain = document.getElementById('play_again');
+const redLight = document.getElementById('red-light');
+const greenLight = document.getElementById('green-light');
 
 
 function initBall() {
@@ -209,7 +169,7 @@ function ballMoveLeftOrRight (evt){
   const right_Collision_PointX = pin.x +60 + pin.r;
    Left_max_pin_hitting_tan = (ball_start_x - left_Collision_PointX)/(ball_start_y-pin.y);
    Right_max_pin_hitting_tan = (ball_start_x - right_Collision_PointX)/(ball_start_y-pin.y);
-  }
+}
     
 
 // grab the ball
@@ -260,9 +220,10 @@ function dragBall(evt) {
 
 // mouse_up function
 function mouse_up(evt) {
-    if (!is_draggingBall) {
-      return;
-    }
+    // if (!is_draggingBall) {
+    //   return;
+    // }
+    if (!is_draggingBall) return;
     evt.preventDefault();
     is_draggingBall = false;
     ball.x = mouseX;
@@ -281,8 +242,10 @@ function mouse_up(evt) {
     gruntSound.play();
     throwBall();
   }
-
+  
   function throwBall (){
+    redLight.style.backgroundColor = "#EE4B2B";
+    greenLight.style.backgroundColor = "black";
     if_hit_the_pins(angleRadian);
     let ballRolling = setInterval(()=>{
     draw_lane_gutter_arrows();
@@ -290,13 +253,15 @@ function mouse_up(evt) {
     draw_pins();
     ball.y = ball.y - Math.cos(angleRadian)*20;
     ball.x = ball.x - Math.sin(angleRadian)*20;
-    if (!hittingPins) {
-      collision_on_gutter();
-    } else {
-      knockingPinsDown();
-    };
+    // if (!hittingPins) {
+    //   collision_on_gutter();
+    // } else {
+    //   knockingPinsDown();
+    // };
+    hittingPins? knockingPinsDown() : collision_on_gutter();
       // 
     if (ball.y <= -50 ){
+
       clearInterval(ballRolling);
       CountScoreAsThrowingBall(knockedPin);
       //reset the ball to the center,draw the ball, canvas and draw the arrows.
@@ -306,7 +271,8 @@ function mouse_up(evt) {
       context.drawImage(leftArrow,30,480,30,30);
       context.drawImage(rightArrow,180,480,30,30);
       knockedPin = 0;
-       
+      redLight.style.backgroundColor = "black";
+      greenLight.style.backgroundColor = "#66FF00";
        // reset the all the pins and draw the pins for new frame
        if(count % 2 === 0){
         pins = []; 
@@ -352,8 +318,12 @@ function knockingPinsDown(){
   for (let pin of pins) {
     if (Math.sqrt((ball.x - pin.x) * (ball.x - pin.x) + (ball.y - pin.y) * (ball.y - pin.y)) <= (ball.r + pin.r)){
         // condition to hit all the pins(first throw+ hit the middle area)
-        if (what_index(count+1) === 0 & ball.x>120 -5 && ball.x <120 +5 && ball.y>80 -5 && ball.y <80 +5 ) {
+        if (what_index(count+1) === 0 & ball.x>120 -6 && ball.x <120 +6 && ball.y>80 -6 && ball.y <80 + 6 ) {
             knockedPin = 10;
+            // function delayPinsDown() {
+            //     pins= []; 
+            // }
+            // setTimeout(delayPinsDown, 500);
             pins= [];
             pinKnockSound.play();
         } else {

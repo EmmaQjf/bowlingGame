@@ -11,6 +11,7 @@ body{
     justify-content: center;
     text-align: center;
     height: 100vh;
+    background-color:rgba(137, 196, 244, 0.3);
 }
 
 /*----- style header -----*/
@@ -96,7 +97,7 @@ header {
   }
   
 /*----- style the gamebaord-----*/
-/* style h1 element  */
+/* style h1,h2 element  */
 h1 {
     text-shadow:  
     1px -4px 2px lightseagreen,
@@ -105,24 +106,30 @@ h1 {
     font-size: 3rem;
     margin-top: 1rem;
 }
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
 /* style the table  */
 table{
     width: 80%;
     border: 2px solid black;
     border-collapse: collapse;
-    margin: 1rem auto 1.5rem;
+    margin: 1rem auto 2rem;
 }
 
 td {
     text-align: center;
     border: 1px solid black;
-    width: 4vmin;
-    height: 4vmin;
+    width: 3.5vmin;
+    height: 3.5vmin;
     font-size: 1.5rem;
 }
 
 tr:first-child{
     background-color: #333;
+    opacity: 0.9;
     color: white;
     font-size: bold;
     font-size: 1rem;
@@ -137,6 +144,35 @@ tr:nth-child(2){
 tr:nth-child(2) > td:last-child{
     background-color: lightskyblue;
 }
+
+/* style the signal light */
+ 
+.signal { 
+    width: 4rem; 
+    height: 2rem; 
+    background-color: #333; 
+    border-radius: 10px; 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    margin: -1rem auto 0rem;
+} 
+
+.light { 
+    width: 1.5rem; 
+    height: 1.5rem; 
+    border-radius: 50%; 
+    margin: 2px; 
+    transition: background-color 0.9s; 
+} 
+
+.red { 
+    background-color: black; 
+}  
+
+.green { 
+    background-color: #66FF00; 
+}  
 
 /* style the button */
 button {
@@ -180,12 +216,51 @@ button:hover {
     z-index: 3;
 }
 
-#exit_game_container > h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+/* make the page responsive  */
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 2rem;
+    }
+    h2,button,td {
+        font-size: 1rem;
+    }
+
+    table {
+        width: 95%;
+    }
+    .pop-up-box{
+        overflow: scroll;
+        padding: 0;
+        width: 50vw;
+    }
+
+    #user_guide > ul > li{
+        font-size: 1rem;
+       }
+
+    #audio-container > input, #audio-container > label {
+        display: none;
+    }
+
+    #user-guide-btn{
+        position: absolute;
+        right: 2.5rem;
+        top: 0.5rem;
+    }
+
+    .close_button {
+        position: absolute;
+        right: 0.3rem;
+        top: 1.6rem;
+        width: 2rem;
+        height: 2rem;
+   }
+   .close_button:before, .close_button:after {
+    position: absolute;
+    left: 15px;
+  }
 }
-
-
+  
 
 
 

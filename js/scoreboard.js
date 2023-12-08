@@ -136,6 +136,8 @@ function renderBoard() {
 	}) 
 }
 
+
+
 /*----- click the exit button to show the pop up page  -----*/
 
 const closeButton = document.getElementById('close_button_background')
@@ -145,6 +147,7 @@ closeButton.addEventListener('click', function () {
     document.getElementById('exit_game_container').style.visibility = "visible";
     blurBackground.style.display = "block";
     blurBackground.classList.add("blur_background");
+    // blurBackground.classList.toggle("blur_background");
 })
 
 /*----- click the user guide button to show the pop up page  -----*/
@@ -160,6 +163,7 @@ userGuide.addEventListener('click', function () {
     userGuide.style.visibility = "hidden";
     blurBackground.style.display = "none";
     blurBackground.classList.remove("blur_background");
+  
 })
 
 /*----- game result congrats Page.   -----*/
@@ -169,7 +173,7 @@ const score = document.getElementById("score");
 //the function will be called if the game is over ;
 function showGameResult() {
     gameResult.style.visibility = "visible";
-    blurBackground.style.display = "block";
+    // blurBackground.style.display = "block";
     blurBackground.classList.add("blur_background");
     score.innerHTML = `${sum}`  
 }

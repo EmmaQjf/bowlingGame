@@ -13,7 +13,7 @@
 <body >
     <header>
     <div id="audio-container">
-        <audio id="music-track" src="https://docs.google.com/uc?export=download&id=1iYIRH3IIONWTGt91cduTD6ncnmZXat7Q" type="audio/mpeg" loop></audio>
+        <audio id="music-track" src="https://docs.google.com/uc?export=download&id=1iYIRH3IIONWTGt91cduTD6ncnmZXat7Q" type="audio/mpeg" autoplay loop></audio>
         <button class="button" id="music-playbt">Play</button>
         <input id="music-range" type="range" min="1" max="100" value="20" class="slider" >
         <label id="volume"></label>
@@ -84,7 +84,11 @@
             <td colspan="2" id="c9idx2"></td>    
         </tr>
     </table>
-
+    <div class="signal"> 
+        <div class="light green" id = "green-light"></div> 
+        <div class="light red " id = "red-light"></div> 
+       
+    </div> 
     <canvas id = "canvas"></canvas>
     <button id = "play_again">Play Again</button>
     <div class = "pop-up-box" id = "exit_game_container">
