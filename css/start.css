@@ -101,11 +101,6 @@ main > button:hover {
     background-image: linear-gradient(darkgrey, lightgrey);
   }
 
-/* .bowling-balls {
-  height: 10px;
-  width: 10px;
-} */
-
 #red-ball {
   position: absolute;
   top: 10rem;
@@ -123,7 +118,7 @@ main > button:hover {
 
 #darkblue-ball {
   position: absolute;
-  top: 1rem;
+  top: -2rem;
   left:50vw;
   width: 20%;
   animation: 5s falldown ease-out infinite 1s;
@@ -131,7 +126,7 @@ main > button:hover {
 
 #lightblue-ball {
   position: absolute;
-  top: 1rem;
+  top: -2rem;
   left:65vw;
   width: 25%;
   animation: 5s falldown ease-out infinite 1.5s
@@ -139,7 +134,7 @@ main > button:hover {
 
 #green-ball {
   position: absolute;
-  top: 1rem;
+  top: -4rem;
   left:80vw;
   width: 50%;
   animation: 5s falldown ease-out infinite 2s
@@ -147,7 +142,7 @@ main > button:hover {
 
 #pink-ball {
   position: absolute;
-  top: 4rem;
+  top: -4rem;
   left:70vw;
   width: 50%;
   animation: 5s falldown ease-out infinite
@@ -178,14 +173,14 @@ main > button:hover {
 
 #orange-ball1 {
   position: absolute;
-  top: 1rem;
+  top: -3rem;
   right: 50vw;
   width: 30%;
   animation: 5s falldown ease-out infinite 1s;
 }
 #red-ball1 {
   position: absolute;
-  top: 6rem;
+  top: -6rem;
   right: 10vw;
   width: 30%;
   animation: 5s falldown ease-out infinite;
@@ -195,25 +190,9 @@ main > button:hover {
   width: 10%;
 } 
 
- /* #red-ball {
-  width: 5px;
-  
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-} */
-
-/* #green-ball {
-  animation: 5s falldown ease-out infinite;
-  position: absolute;
-  top: 2rem;
-  left: 20rem;
-} */
-
-
 @keyframes falldown{
   0%{
-    transform: translateY(10vh) translateY(5vw)  rotate(20deg)
+    transform: translateY(10vh) translateY(5vw)  rotate(400deg)
   }
   10% {
     transform: translateY(25vh) translatex(1vw) rotate(160deg) 
@@ -225,7 +204,7 @@ main > button:hover {
     transform: translateY(19vh) translateY(30vw)  rotate(90deg)
    }
    40% {
-    transform: translateY(3vh)  translatex(15vw) rotate(0deg)
+    transform: translateY(3vh)  translatex(15vw) rotate(500deg)
    }
    50% {
     transform: translateY(30vh)  translatex(2vw) rotate(180deg)
@@ -233,18 +212,23 @@ main > button:hover {
    60% {
     transform: translateY(60vh) translatex(10vw) rotate(240deg) 
    }
-   70% {
+   /* 70% {
     transform: translateY(65vh) translatex(3vw) rotate(2800deg) 
-   }
+   } */
+  70% {
+    transform: translateY(65vh) translatex(-10vw) rotate(2800deg) 
+   } 
    75% {
-    transform: translateY(55vh) translatex(10vw) rotate(160deg) 
+    transform: translateY(55vh) translatex(-15vw) rotate(160deg) 
    }
    80% {
-    transform: translateY(70vh) translatex(15vw) rotate(300deg)
+    transform: translateY(70vh) translatex(-25vw) rotate(300deg)
    }
-
+   85% {
+    transform: translateY(70vh) translatex(-50vw) rotate(300deg)
+   }
    90% {
-    transform: translateY(40vh) translatex(6vw) rotate(360deg)
+    transform: translateY(40vh) translatex(-6vw) rotate(360deg)
    }
    95% {
     transform: translateY(60vh)  translatex(50vw) rotate(180deg)
@@ -255,5 +239,3 @@ main > button:hover {
 } 
 
  
-
-

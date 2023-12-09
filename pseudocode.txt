@@ -2,56 +2,65 @@ Once the pins are knocked, they will disappear
 
      /*----- constants -----*/
 
-Define the bowling ball, canvas, the symbols
+Define the bowling ball, canvas, the symbols for the amount of knocked pins, the arrows.
 
 
      /*----- state variables -----*/
      // score board 
-Use an array to represent the scoreboard
+array variable to represent the scoreboard;
 varaiable to represent the total points of the game 
 count the number of the throw ;
-which frame it is,
-the index of throw in each frame
+define which frame it is,
+define the index of throw in each frame
 
  // canvas gamelane
+define the pins
 Define an variable to represent the position of the ball.
-Variable to define the direction of the ball and the speed of the ball
+Variable to define the direction of the ball will go 
 Variable to define the number of the knocked pins
+variable to check the starting position of the bowling ball.
+variable to check the ending position of the bowling ball.
+variable to check the angle radian of the the ball being thrown
+
 
      /*----- cached elements -----*/
-table --scoreboard
-each cell in table
+pop up menus (exit-game button; game result pop up window; user-guide)
+the signal light to be switched between red and green;
+the play again button to restart the game
+the total value on the scoreboard on the DOM
+
 
      /*----- event listeners -----*/
-1.click the ball,grab the ball, triggers the ball the move in the direction assigned .
+1.click the ball,grab the ball, triggers the ball to move in the direction assigned .
 2. when ball touches the channel, fall in the channel, change direction and go in Y direction, no pins get knocked down.
 2. When the ball touches the bowling pins, trigger the bowling pins to fall and update the score on the score board.
+
      /*----- functions -----*/
 
      // canvas, gamelane
 Init => scoreboard to be empty, bowing balls to be centered, bowling pins to be positions.
-grab the ball;
-drag the ball;
-throw the ball;
-collision on the channel;
-collision on the pins
+function to grab the ball(the mouse must be within the range of the radius of the ball);
+function to drag the ball(mouseover to drage the ball);
+function throw the ball(mouse up to let the ball go);
+get the bowling ball rolling and stop once the ball is out of the end of bowling lane. (set interval)
+function to check whether the bowling ball is in the range of hitting the pins.
+function to check the collision on the channel -> change direction x ===0, ball goes forward;
+function to check the collision on the pins -> distance of ball and pin should be less than the total of their radius ->  check how many pins are knocked and make the pins disappear.
+
+
+
   // scoreboard 
-define in each frame, what is the index of the each throw;
-caculate the sum ;
-check if it is stike or spare 
+function to initiate the scorebaord;
+function to define what is the index of the each throw in each frame;
+function to caculate the sum;
+function to check if the throw is a strike or spare and update the scoreboard;
+function to render the scoreboard on DOM;
 
 
+// If I have time,
+1.I would have user move the ball left or right on a page, then have user randomly pick the power of ball and direction of where bowling ball is going.
+2.Visually I would add images of pins instead white dots to represent pins and add animations to have pin fall when knocked. 
+3.Make this a two player game.
+4. Ideally I want to try to make this game 3D.
 
-// If I hve time, I will change the position of the bowling ball horizontally.Speed -> randomly choose the speed level
-
-Direction -> randomly pick the direction(the direction angle falls into a range, the ball hits the pins; out of range, no pins gets hit)
-Update the score on the scoreboard
-
-
-if I have time,
-Use the left and right arrow to move the bowling bowl to the left and right.
-Click to randomly pick the power of ball and direction of where bowling ball is going.
-
-
-
-// update the scoreboard based on the score, strike -x; spare - /, 0 - -, all the others, 
+ 

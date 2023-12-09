@@ -12,7 +12,7 @@ const channelRight = drawRect(210,0,30,600,'grey')
 const ball = {
   x: canvas.width/2,
   y: 500,
-  r: 21,
+  r: 20,
 //   speed: null,
 //   velocityX: null,
 //   velocityY: null,
@@ -40,6 +40,7 @@ rightArrow.onload = function() {
 
  const pinKnockSound = new Audio("https://docs.google.com/uc?export=download&id=19CCo3gZzRhSBW43cVHFiQmJdiFJPuXE6")
  const gruntSound = new Audio("https://docs.google.com/uc?export=download&id=10MGDofCN3u6vJ_Z2UZTdM9MRI9jZv7cG")
+ const congratsSound = new Audio("https://docs.google.com/uc?export=download&id=1fZunz4oqxt1sZN-VQW44pbbtca2DgLRd")
 
  
  // draw bowling lane, ball and pins
@@ -185,7 +186,6 @@ function grabBall(evt) {
   if (if_mouse_on_ball(mouseX, mouseY)) {
     is_draggingBall = true;
     canvas.style.cursor = 'grab';
-    // return;
   } else {
     is_draggingBall = false;
   } 
@@ -295,7 +295,8 @@ function mouse_up(evt) {
         drawRect(30,0,180,600,'#8B4513'); //lane
         drawRect(0,0,30,600,'grey'); //leftgutter
         drawRect(210,0,30,600,'grey');//rightgutter
-        showGameResult()
+        showGameResult();
+        congratsSound.play();
        }
       }
     }

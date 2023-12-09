@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/game.css">
-    <!-- <script defer src="./js/canvas.js"></script> -->
     <script defer src="./js/canvasmovebowling.js"></script>
-    <!-- <script defer src="./js/gameboard.js"></script> -->
     <script defer src="./js/scoreboard.js"></script>
     <title>Bowling Game</title>
 </head>
@@ -15,7 +13,7 @@
     <div id="audio-container">
         <audio id="music-track" src="https://docs.google.com/uc?export=download&id=1iYIRH3IIONWTGt91cduTD6ncnmZXat7Q" type="audio/mpeg" autoplay loop></audio>
         <button class="button" id="music-playbt">Play</button>
-        <input id="music-range" type="range" min="1" max="100" value="20" class="slider" >
+        <input id="music-range" type="range" min="1" max="100" value="5" class="slider" >
         <label id="volume"></label>
     </div>
     
@@ -97,9 +95,8 @@
         <button id = "backto_game" onclick="window.location.href='game.html'">No, take me back to the game</button>
     </div>  
     <div class = "pop-up-box" id = "game_result">
-        <h2>Congrats!Your final score is <span id = "score"><span></h2>
-        <!-- <button id = "leave_game" onclick="location.href='https://www.google.com/'" >Yes, exit the game </button>
-        <button id = "returnto_game" onclick="window.location.href='game.html'">No, take me back to the game</button> -->
+        <div id = "congrats-container"><img src="img/congrats-moving.gif" alt=""></div>
+        <h2>Your final score is <span id = "score"><span></h2>
     </div>  
 
 </body>

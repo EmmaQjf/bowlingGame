@@ -11,9 +11,14 @@ body{
     justify-content: center;
     text-align: center;
     height: 100vh;
-    background-color:rgba(137, 196, 244, 0.3);
+    background-color:rgba(137, 196, 244, 0.3); 
+    background-image: linear-gradient( rgba(255,255,255, 0.9),rgba(255,255,255, 0.8)), url("../img/background.png");
+
 }
 
+canvas {
+    border: 2px solid black;
+}
 /*----- style header -----*/
 header {
     display: flex;
@@ -34,6 +39,7 @@ header {
 /* audio slider bar */
 #audio-container{
     display: flex;
+    align-items: center;
     position: absolute;
     left: 1rem;
     top: 0.1rem;
@@ -41,10 +47,37 @@ header {
 #audio-container > label {
     color: black;
     font-size: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin-left: 0.5rem;
 }
+
+/* style the slider */
+.slider {
+    -webkit-appearance: none;  
+    appearance: none;
+    margin-left: 0.5rem;
+    width: 100%; 
+    height: 15px; 
+    background: grey; 
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
+    transition: opacity .2s;
+
+  }
+  
+  .slider:hover {
+    opacity: 1; 
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 20px; 
+    height: 15px; 
+    background-image: linear-gradient(to top, lightskyblue 0%, lightseagreen 100%);
+    cursor: pointer; 
+  }
+
 /* style the blur background when user exits the game */
  #blur_background{
     background-color: black;
@@ -70,15 +103,15 @@ header {
     top: 1.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    opacity: 0.4;
-    background-color: skyblue;
+    background-image: linear-gradient(to top, lightskyblue 0%, lightseagreen 100%);
+    border: none;;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .close_button:hover {
-    opacity: 1;
+    opacity: 0.5;
   }
   .close_button:before, .close_button:after {
     position: absolute;
@@ -133,6 +166,7 @@ tr:first-child{
     color: white;
     font-size: bold;
     font-size: 1rem;
+    z-index: 1;
 }
  tr:last-child {
     background-color: lightskyblue;
@@ -146,11 +180,11 @@ tr:nth-child(2) > td:last-child{
 }
 
 /* style the signal light */
- 
 .signal { 
     width: 4rem; 
     height: 2rem; 
     background-color: #333; 
+    /* background-color: grey; */
     border-radius: 10px; 
     display: flex; 
     justify-content: space-around; 
@@ -213,7 +247,20 @@ button:hover {
     align-items: center;
     border: 0.5rem black solid;
     visibility: hidden;
-    z-index: 3;
+    z-index: 4;
+}
+
+#congrats-container {
+    width:25vw;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#congrats-container img {
+    width:25vw;
 }
 
 /* make the page responsive  */
@@ -259,8 +306,20 @@ button:hover {
     position: absolute;
     left: 15px;
   }
+
+  #congrats-container {
+    width: 30vw;
+    margin: 2rem auto;
 }
-  
 
 
+#congrats-container img {
+    width:30vw;
+}
+}
+
+
+
+
+    
 
