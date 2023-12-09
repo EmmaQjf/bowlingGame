@@ -248,6 +248,7 @@ button:hover {
     border: 0.5rem black solid;
     visibility: hidden;
     z-index: 4;
+    overflow: scroll;
 }
 
 #congrats-container {
@@ -264,6 +265,7 @@ button:hover {
 }
 
 /* make the page responsive  */
+
 @media screen and (max-width: 800px) {
     h1 {
         font-size: 2rem;
@@ -317,9 +319,4 @@ button:hover {
     width:30vw;
 }
 }
-
-
-
-
-    
 
