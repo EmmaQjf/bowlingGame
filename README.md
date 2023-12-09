@@ -9,7 +9,7 @@ Description: This is a bowling game. User will be able to
 ![IMAGE_DESCRIPTION](img/bowling-game-photo.png)
 
 Technologies Used:  JavaScript, HTML, CSS
-Getting Started:  Click to open the game 
+Getting Started:  Click to open the game https://emmaqjf.github.io/bowlingGame/
 
 1. User should read the user guide.
 2. useful tips to score high in this game: Aim to the center of the first pin and you are more likely to get a strike.
